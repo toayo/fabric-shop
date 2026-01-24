@@ -1,0 +1,13 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#F5F1EB" />
+      <stop offset="50%" stop-color="#E7DED2" />
+      <stop offset="100%" stop-color="#C8B8A8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="40" fill="url(#grad)" />
+  <rect x="80" y="80" width="1040" height="740" rx="32" fill="#FFFFFF" opacity="0.5" />
+  <text x="120" y="470" font-family="Arial" font-size="48" fill="#2F2A25">Harvey's Fabric</text>
+  <text x="120" y="530" font-family="Arial" font-size="28" fill="#6D5B4D">silk-hibiscus-1</text>
+</svg>

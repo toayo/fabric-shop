@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+.env.local
+.env
+.env.*
+netlify/.next
+netlify/functions-serve
+.DS_Store

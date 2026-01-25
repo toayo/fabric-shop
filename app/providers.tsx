@@ -8,13 +8,13 @@ export default function Providers({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: 1, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
+        exit={{ opacity: 1, y: -8 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         className="min-h-screen"
       >
         {children}

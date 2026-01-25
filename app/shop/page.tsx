@@ -43,26 +43,26 @@ export default function ShopPage() {
 
   return (
     <div className="container pb-20">
-      <div className="rounded-3xl bg-white p-8 shadow-sm">
+      <div className="rounded-3xl p-8 shadow-sm surface card-hover">
         <h1 className="text-3xl font-semibold">Shop Fabrics</h1>
-        <p className="mt-2 text-sm text-cocoa/60">
+        <p className="mt-2 text-sm text-[var(--muted)]">
           Filter by fabric type, color, or search by name. Every fabric is sold by length.
         </p>
         <div className="mt-6 grid gap-4 lg:grid-cols-[2fr_2fr_1fr]">
           <div>
-            <p className="text-xs uppercase text-cocoa/50">Fabric Type</p>
+            <p className="text-xs uppercase text-[var(--muted)]">Fabric Type</p>
             <FilterTabs options={typeOptions} value={type} onChange={setType} />
           </div>
           <div>
-            <p className="text-xs uppercase text-cocoa/50">Color</p>
+            <p className="text-xs uppercase text-[var(--muted)]">Color</p>
             <FilterTabs options={colorOptions} value={color} onChange={setColor} />
           </div>
           <div>
-            <p className="text-xs uppercase text-cocoa/50">Price</p>
+            <p className="text-xs uppercase text-[var(--muted)]">Price</p>
             <select
               value={sort}
               onChange={(event) => setSort(event.target.value)}
-              className="mt-2 w-full rounded-full border border-cocoa/20 bg-white px-4 py-3 text-sm"
+              className="input-theme mt-2 w-full rounded-full px-4 py-3 text-sm"
             >
               <option value="featured">Featured</option>
               <option value="price-low">Price: Low to high</option>
@@ -76,7 +76,7 @@ export default function ShopPage() {
             placeholder="Search fabric name"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            className="w-full rounded-full border border-cocoa/20 bg-white px-5 py-3 text-sm"
+            className="input-theme w-full rounded-full px-5 py-3 text-sm"
           />
         </div>
       </div>

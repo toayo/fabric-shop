@@ -5,14 +5,14 @@ export default function CartSummary({ items }: { items: CartItem[] }) {
   const total = items.reduce((sum, item) => sum + item.priceAtAdd * item.length, 0);
 
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-sm">
+    <div className="rounded-3xl p-6 shadow-sm surface card-hover">
       <h3 className="text-sm font-semibold">Order Summary</h3>
       <div className="mt-4 space-y-4">
         {items.map((item) => (
           <div key={item.id} className="flex items-center justify-between text-sm">
             <div>
               <p className="font-medium">{item.name}</p>
-              <p className="text-xs text-cocoa/60">
+              <p className="text-xs text-[var(--muted)]">
                 {item.length.toFixed(2)} {item.unit}s · {formatUnit(item.unit)}
               </p>
             </div>
@@ -20,11 +20,11 @@ export default function CartSummary({ items }: { items: CartItem[] }) {
           </div>
         ))}
       </div>
-      <div className="mt-6 flex items-center justify-between border-t border-cocoa/10 pt-4 text-sm font-semibold">
+      <div className="mt-6 flex items-center justify-between border-t border-theme pt-4 text-sm font-semibold">
         <span>Total</span>
         <span>{formatCurrency(total, items[0]?.currency ?? "JMD")}</span>
       </div>
-      <p className="mt-3 text-xs text-cocoa/60">
+      <p className="mt-3 text-xs text-[var(--muted)]">
         Shipping within Jamaica calculated at checkout. Need bulk delivery? Contact our team.
       </p>
     </div>

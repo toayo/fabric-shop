@@ -7,7 +7,6 @@ export type FabricProduct = {
   pricePerYard: number;
   pricePerMeter: number;
   currency: "JMD" | "USD";
-  images: string[];
   description: string;
   width: string;
   weight: string;
@@ -48,7 +47,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 1250,
     pricePerMeter: 1365,
     currency: "JMD",
-    images: ["/images/cotton-midnight-1.svg", "/images/cotton-midnight-2.svg"],
     description: "Smooth, breathable cotton sateen with a subtle sheen for tailored pieces and occasion wear.",
     width: "58 in",
     weight: "165 gsm",
@@ -65,7 +63,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 2150,
     pricePerMeter: 2350,
     currency: "JMD",
-    images: ["/images/linen-seaside-1.svg", "/images/linen-seaside-2.svg"],
     description: "Airy, crisp linen in a calm Caribbean blue with a relaxed, premium drape.",
     width: "55 in",
     weight: "190 gsm",
@@ -82,7 +79,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 4800,
     pricePerMeter: 5240,
     currency: "JMD",
-    images: ["/images/silk-hibiscus-1.svg", "/images/silk-hibiscus-2.svg"],
     description: "Luxurious charmeuse with a luminous finish, ideal for statement blouses and evening looks.",
     width: "54 in",
     weight: "95 gsm",
@@ -99,7 +95,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 980,
     pricePerMeter: 1070,
     currency: "JMD",
-    images: ["/images/polyester-sunset-1.svg", "/images/polyester-sunset-2.svg"],
     description: "Easy-care crepe with fluid movement and a matte finish for everyday elegance.",
     width: "60 in",
     weight: "140 gsm",
@@ -116,7 +111,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 5200,
     pricePerMeter: 5680,
     currency: "JMD",
-    images: ["/images/lace-ivory-1.svg", "/images/lace-ivory-2.svg"],
     description: "Delicate floral lace with soft scallops for bridal overlays and heirloom designs.",
     width: "52 in",
     weight: "75 gsm",
@@ -133,7 +127,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 1750,
     pricePerMeter: 1910,
     currency: "JMD",
-    images: ["/images/denim-oak-1.svg", "/images/denim-oak-2.svg"],
     description: "Structured selvedge denim with a soft rinse, perfect for jackets and structured dresses.",
     width: "60 in",
     weight: "320 gsm",
@@ -150,7 +143,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 1480,
     pricePerMeter: 1615,
     currency: "JMD",
-    images: ["/images/rayon-palms-1.svg", "/images/rayon-palms-2.svg"],
     description: "Soft rayon twill with a smooth hand and vibrant green hue for resort wear.",
     width: "57 in",
     weight: "175 gsm",
@@ -167,7 +159,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 1950,
     pricePerMeter: 2130,
     currency: "JMD",
-    images: ["/images/linen-sandbar-1.svg", "/images/linen-sandbar-2.svg"],
     description: "Neutral linen blend with a textured slub for relaxed tailoring and home decor.",
     width: "56 in",
     weight: "210 gsm",
@@ -184,7 +175,6 @@ export const products: FabricProduct[] = [
     pricePerYard: 1380,
     pricePerMeter: 1505,
     currency: "JMD",
-    images: ["/images/cotton-carnival-1.svg", "/images/cotton-carnival-2.svg"],
     description: "Playful multicolor cotton poplin with bold tropical motifs for statement pieces.",
     width: "44 in",
     weight: "120 gsm",

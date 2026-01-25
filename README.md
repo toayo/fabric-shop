@@ -40,10 +40,9 @@ Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 - `data/products.ts` — seed catalog data
 - `lib/` — utilities, cart store, formatting helpers
 - `netlify/functions/` — Stripe payment intent creation
-- `public/images/` — product imagery placeholders
+- `public/` — static assets (no bundled imagery)
 
 ## Notes
 
 - Currency display defaults to JMD (Jamaican Dollars). Stripe supports multiple currencies — adjust `NEXT_PUBLIC_STRIPE_CURRENCY` if needed.
 - Cart is stored in `localStorage` for persistence.
-

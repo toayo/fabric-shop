@@ -1,20 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/data/products";
 import { formatCurrency, formatUnit } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
 import { isValidLength } from "@/lib/validation";
-import { blurDataURL } from "@/lib/image-placeholder";
 import QuantityStepper from "@/app/components/QuantityStepper";
+import FabricSwatch from "@/app/components/FabricSwatch";
 import { motion } from "framer-motion";
 
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = getProductBySlug(params.slug);
   const addItem = useCartStore((state) => state.addItem);
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedSwatch, setSelectedSwatch] = useState(0);
   const [unit, setUnit] = useState<"yard" | "meter">("yard");
   const [length, setLength] = useState(1);
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +24,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
   const unitPrice = unit === "yard" ? product.pricePerYard : product.pricePerMeter;
   const total = unitPrice * length;
+  const swatchVariants = ["primary", "secondary"] as const;
 
   const handleAdd = () => {
     if (!isValidLength(length)) {
@@ -36,7 +36,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
       id: `${product.id}-${unit}-${length}-${Date.now()}`,
       productId: product.id,
       name: product.name,
-      image: product.images[0],
+      color: product.color,
       unit,
       length,
       priceAtAdd: unitPrice,
@@ -48,47 +48,40 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
     <div className="container pb-20">
       <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] bg-white shadow-sm">
-            <Image
-              src={product.images[selectedImage]}
-              alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-              priority
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] surface shadow-sm">
+            <FabricSwatch
+              color={product.color}
+              label={`${product.name} fabric swatch`}
+              variant={swatchVariants[selectedSwatch]}
+              className="absolute inset-0"
             />
           </div>
           <div className="mt-4 flex gap-3">
-            {product.images.map((image, index) => (
+            {swatchVariants.map((variant, index) => (
               <button
-                key={image}
-                onClick={() => setSelectedImage(index)}
+                key={variant}
+                onClick={() => setSelectedSwatch(index)}
                 className={`relative h-20 w-24 overflow-hidden rounded-2xl border ${
-                  selectedImage === index ? "border-ember" : "border-transparent"
+                  selectedSwatch === index ? "border-[var(--accent)]" : "border-transparent"
                 }`}
               >
-                <Image
-                  src={image}
-                  alt={`${product.name} ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                  placeholder="blur"
-                  blurDataURL={blurDataURL}
+                <FabricSwatch
+                  color={product.color}
+                  label={`${product.name} swatch ${index + 1}`}
+                  variant={variant}
+                  className="absolute inset-0"
                 />
               </button>
             ))}
           </div>
         </div>
         <div>
-          <p className="text-xs uppercase text-cocoa/50">{product.type}</p>
+          <p className="text-xs uppercase text-[var(--muted)]">{product.type}</p>
           <h1 className="mt-2 text-3xl font-semibold">{product.name}</h1>
-          <p className="mt-3 text-sm text-cocoa/70">{product.description}</p>
-          <div className="mt-6 space-y-4 rounded-3xl bg-white p-6 shadow-sm">
+          <p className="mt-3 text-sm text-[var(--muted)]">{product.description}</p>
+          <div className="mt-6 space-y-4 rounded-3xl p-6 shadow-sm surface card-hover">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-cocoa/70">Unit price</p>
+              <p className="text-sm text-[var(--muted)]">Unit price</p>
               <p className="text-lg font-semibold">
                 {formatCurrency(unitPrice, product.currency)} {formatUnit(unit)}
               </p>
@@ -100,8 +93,8 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   onClick={() => setUnit(option)}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     unit === option
-                      ? "bg-ember text-white"
-                      : "border border-cocoa/20 text-cocoa"
+                      ? "btn-primary shadow-soft"
+                      : "btn-secondary"
                   }`}
                 >
                   {option === "yard" ? "Per Yard" : "Per Meter"}
@@ -119,33 +112,33 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <motion.button
               whileTap={{ scale: 0.98 }}
               onClick={handleAdd}
-              className="w-full rounded-full bg-ember px-6 py-3 text-sm font-semibold text-white"
+              className="btn-primary w-full rounded-full px-6 py-3 text-sm font-semibold"
             >
               Add to Cart
             </motion.button>
-            <p className="text-xs text-cocoa/60">
+            <p className="text-xs text-[var(--muted)]">
               Jamaica delivery calculated at checkout. Need assistance? Reach out to our team.
             </p>
           </div>
           <div className="mt-8 grid gap-4 text-sm">
-            <div className="flex justify-between border-b border-cocoa/10 pb-2">
-              <span className="text-cocoa/60">Composition</span>
+            <div className="flex justify-between border-b border-theme pb-2">
+              <span className="text-[var(--muted)]">Composition</span>
               <span>{product.composition}</span>
             </div>
-            <div className="flex justify-between border-b border-cocoa/10 pb-2">
-              <span className="text-cocoa/60">Width</span>
+            <div className="flex justify-between border-b border-theme pb-2">
+              <span className="text-[var(--muted)]">Width</span>
               <span>{product.width}</span>
             </div>
-            <div className="flex justify-between border-b border-cocoa/10 pb-2">
-              <span className="text-cocoa/60">Weight</span>
+            <div className="flex justify-between border-b border-theme pb-2">
+              <span className="text-[var(--muted)]">Weight</span>
               <span>{product.weight}</span>
             </div>
-            <div className="flex justify-between border-b border-cocoa/10 pb-2">
-              <span className="text-cocoa/60">Care</span>
+            <div className="flex justify-between border-b border-theme pb-2">
+              <span className="text-[var(--muted)]">Care</span>
               <span>{product.care}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-cocoa/60">Origin</span>
+              <span className="text-[var(--muted)]">Origin</span>
               <span>{product.origin}</span>
             </div>
           </div>

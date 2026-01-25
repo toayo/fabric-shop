@@ -13,10 +13,10 @@ export default function FabricTypePage({ params }: { params: { type: string } })
 
   return (
     <div className="container pb-20">
-      <div className="rounded-3xl bg-white p-8 shadow-sm">
-        <p className="text-xs uppercase text-cocoa/50">Fabric type</p>
+      <div className="rounded-3xl p-8 shadow-sm surface card-hover">
+        <p className="text-xs uppercase text-[var(--muted)]">Fabric type</p>
         <h1 className="mt-2 text-3xl font-semibold capitalize">{type}</h1>
-        <p className="mt-3 text-sm text-cocoa/60">
+        <p className="mt-3 text-sm text-[var(--muted)]">
           Explore our curated {type} selection, ideal for Jamaica&apos;s climate and
           studio-ready tailoring.
         </p>
@@ -24,7 +24,7 @@ export default function FabricTypePage({ params }: { params: { type: string } })
           {chipOptions.map((chip) => (
             <span
               key={chip}
-              className="rounded-full border border-cocoa/20 px-3 py-1 text-xs text-cocoa/70"
+              className="rounded-full border border-theme px-3 py-1 text-xs text-[var(--muted)]"
             >
               {chip}
             </span>

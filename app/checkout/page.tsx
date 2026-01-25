@@ -46,7 +46,7 @@ function CheckoutForm({ clientSecret }: { clientSecret: string }) {
       <button
         type="submit"
         disabled={!stripe || submitting}
-        className="w-full rounded-full bg-ember px-6 py-3 text-sm font-semibold text-white disabled:opacity-60"
+        className="btn-primary w-full rounded-full px-6 py-3 text-sm font-semibold disabled:opacity-60"
       >
         {submitting ? "Processing..." : "Pay now"}
       </button>
@@ -93,8 +93,8 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="container pb-20">
-        <div className="rounded-3xl bg-white p-8 text-center shadow-sm">
-          <p className="text-sm text-cocoa/70">Your cart is empty.</p>
+        <div className="rounded-3xl p-8 text-center shadow-sm surface card-hover">
+          <p className="text-sm text-[var(--muted)]">Your cart is empty.</p>
         </div>
       </div>
     );
@@ -103,18 +103,20 @@ export default function CheckoutPage() {
   return (
     <div className="container pb-20">
       <h1 className="text-3xl font-semibold">Checkout</h1>
-      <p className="mt-2 text-sm text-cocoa/60">
+      <p className="mt-2 text-sm text-[var(--muted)]">
         Secure checkout powered by Stripe. Card and Apple Pay are supported.
       </p>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="rounded-3xl bg-white p-6 shadow-sm">
-          <div className="flex items-center gap-3 text-xs uppercase text-cocoa/50">
-            <span className={step >= 1 ? "text-ember" : ""}>Cart summary</span>
+        <div className="rounded-3xl p-6 shadow-sm surface card-hover">
+          <div className="flex items-center gap-3 text-xs uppercase text-[var(--muted)]">
+            <span className={step >= 1 ? "text-[var(--accent)]" : ""}>Cart summary</span>
             <span>→</span>
-            <span className={step >= 2 ? "text-ember" : ""}>Customer info</span>
+            <span className={step >= 2 ? "text-[var(--accent)]" : ""}>
+              Customer info
+            </span>
             <span>→</span>
-            <span className={step >= 3 ? "text-ember" : ""}>Payment</span>
+            <span className={step >= 3 ? "text-[var(--accent)]" : ""}>Payment</span>
           </div>
           <AnimatePresence mode="wait">
             {step === 1 && (
@@ -126,12 +128,12 @@ export default function CheckoutPage() {
                 transition={{ duration: 0.3 }}
                 className="mt-6"
               >
-                <p className="text-sm text-cocoa/70">
+                <p className="text-sm text-[var(--muted)]">
                   You&apos;re purchasing {items.length} fabric selections.
                 </p>
                 <button
                   onClick={() => setStep(2)}
-                  className="mt-4 rounded-full bg-ember px-6 py-3 text-sm font-semibold text-white"
+                  className="btn-primary mt-4 rounded-full px-6 py-3 text-sm font-semibold"
                 >
                   Continue
                 </button>
@@ -147,37 +149,37 @@ export default function CheckoutPage() {
                 className="mt-6 space-y-4"
               >
                 <div>
-                  <label className="text-xs uppercase text-cocoa/60">Name</label>
+                  <label className="text-xs uppercase text-[var(--muted)]">Name</label>
                   <input
                     type="text"
                     value={customer.name}
                     onChange={(event) =>
                       setCustomer((prev) => ({ ...prev, name: event.target.value }))
                     }
-                    className="mt-2 w-full rounded-full border border-cocoa/20 px-4 py-3 text-sm"
+                    className="input-theme mt-2 w-full rounded-full px-4 py-3 text-sm"
                   />
                 </div>
                 <div>
-                  <label className="text-xs uppercase text-cocoa/60">Email</label>
+                  <label className="text-xs uppercase text-[var(--muted)]">Email</label>
                   <input
                     type="email"
                     value={customer.email}
                     onChange={(event) =>
                       setCustomer((prev) => ({ ...prev, email: event.target.value }))
                     }
-                    className="mt-2 w-full rounded-full border border-cocoa/20 px-4 py-3 text-sm"
+                    className="input-theme mt-2 w-full rounded-full px-4 py-3 text-sm"
                   />
                 </div>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setStep(1)}
-                    className="rounded-full border border-cocoa/20 px-6 py-3 text-sm font-semibold"
+                    className="btn-secondary rounded-full px-6 py-3 text-sm font-semibold"
                   >
                     Back
                   </button>
                   <button
                     onClick={() => setStep(3)}
-                    className="rounded-full bg-ember px-6 py-3 text-sm font-semibold text-white"
+                    className="btn-primary rounded-full px-6 py-3 text-sm font-semibold"
                   >
                     Continue to payment
                   </button>
@@ -195,13 +197,24 @@ export default function CheckoutPage() {
               >
                 {error && <p className="text-xs text-red-500">{error}</p>}
                 {!clientSecret ? (
-                  <p className="text-sm text-cocoa/70">Preparing secure payment...</p>
+                  <p className="text-sm text-[var(--muted)]">
+                    Preparing secure payment...
+                  </p>
                 ) : (
                   <Elements
                     stripe={stripePromise}
                     options={{
                       clientSecret,
-                      appearance: { theme: "stripe" },
+                      appearance: {
+                        theme: "night",
+                        variables: {
+                          colorPrimary: "#e3b66f",
+                          colorBackground: "#3a1a54",
+                          colorText: "#f8f2ff",
+                          colorTextSecondary: "#d8c7ee",
+                          colorBorder: "#5c2c7f",
+                        },
+                      },
                       loader: "auto",
                     }}
                   >
@@ -214,8 +227,8 @@ export default function CheckoutPage() {
         </div>
         <div>
           <CartSummary items={items} />
-          <div className="mt-6 rounded-3xl bg-white p-6 text-sm text-cocoa/70 shadow-sm">
-            <p className="font-semibold text-cocoa">Total due</p>
+          <div className="mt-6 rounded-3xl p-6 text-sm text-[var(--muted)] shadow-sm surface card-hover">
+            <p className="font-semibold text-[var(--text)]">Total due</p>
             <p className="mt-2 text-2xl font-semibold">
               {formatCurrency(total, items[0]?.currency ?? "JMD")}
             </p>

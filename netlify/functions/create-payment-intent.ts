@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { isValidLength } from "../../lib/validation";
-import { prisma } from "../../lib/db";
+import { getPrismaClient } from "../../lib/db";
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -14,6 +14,14 @@ const stripe = new Stripe(stripeSecretKey, {
 
 export const handler = async (event: { body?: string }) => {
   try {
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Database not configured." }),
+      };
+    }
+
     const payload = event.body ? JSON.parse(event.body) : null;
     const items = payload?.items ?? [];
     const shipping = Number(payload?.shipping ?? 0);

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPrismaClient } from "@/lib/db";
 import ProductForm from "@/app/admin/components/ProductForm";
 
 export const dynamic = "force-dynamic";
@@ -7,6 +7,10 @@ export const dynamic = "force-dynamic";
 export default function NewProductPage() {
   async function createProduct(formData: FormData) {
     "use server";
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return;
+    }
     const images = JSON.parse(String(formData.get("images") ?? "[]")) as string[];
     const colorsRaw = String(formData.get("colors") ?? "");
     const colors = colorsRaw

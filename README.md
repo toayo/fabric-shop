@@ -67,17 +67,24 @@ to notify the customer and store owner after payment confirmation.
 
 ## Deploy checklist (Netlify env vars)
 
+## Required Netlify environment variables
+
+Required for a fully functional production deployment:
+
 - `ADMIN_PASSWORD`
 - `DATABASE_URL`
 - `STRIPE_SECRET_KEY`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SITE_URL`
+- `RESEND_API_KEY`
+
+Optional (feature-specific):
+
 - `NEXT_PUBLIC_STRIPE_CURRENCY` (default: `jmd`)
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
 - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`
-- `RESEND_API_KEY` (or `SENDGRID_API_KEY` if swapping providers)
 - `STORE_OWNER_EMAIL`
-- `NEXT_PUBLIC_SITE_URL`
 
 ## Notes
 

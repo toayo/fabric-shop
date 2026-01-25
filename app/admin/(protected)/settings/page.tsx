@@ -1,14 +1,26 @@
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/db";
+import { getPrismaClient } from "@/lib/db";
 import { getShippingConfig } from "@/lib/shipping";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminSettingsPage() {
+  if (!process.env.DATABASE_URL) {
+    return null;
+  }
+
+  const prisma = await getPrismaClient();
+  if (!prisma) {
+    return null;
+  }
   const config = await getShippingConfig();
 
   async function updateConfig(formData: FormData) {
     "use server";
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return;
+    }
     await prisma.shippingConfig.update({
       where: { id: config.id },
       data: {

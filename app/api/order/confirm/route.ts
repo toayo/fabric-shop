@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { getPrismaClient } from "@/lib/db";
 import { sendOrderEmails } from "@/lib/email";
 
 export async function GET(request: Request) {
@@ -8,6 +8,11 @@ export async function GET(request: Request) {
 
   if (!paymentIntentId) {
     return NextResponse.json({ error: "Missing payment intent." }, { status: 400 });
+  }
+
+  const prisma = await getPrismaClient();
+  if (!prisma) {
+    return NextResponse.json({ error: "Database not configured." }, { status: 500 });
   }
 
   const order = await prisma.order.findUnique({

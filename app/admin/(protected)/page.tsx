@@ -1,15 +1,27 @@
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/db";
+import { getPrismaClient } from "@/lib/db";
 import ProductMedia from "@/app/components/ProductMedia";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminProductsPage() {
+  if (!process.env.DATABASE_URL) {
+    return null;
+  }
+
+  const prisma = await getPrismaClient();
+  if (!prisma) {
+    return null;
+  }
   const products = await prisma.product.findMany({ orderBy: { createdAt: "desc" } });
 
   async function toggleStock(formData: FormData) {
     "use server";
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return;
+    }
     const id = String(formData.get("id"));
     const current = formData.get("current") === "true";
     await prisma.product.update({
@@ -21,6 +33,10 @@ export default async function AdminProductsPage() {
 
   async function deleteProduct(formData: FormData) {
     "use server";
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return;
+    }
     const id = String(formData.get("id"));
     await prisma.product.delete({ where: { id } });
     revalidatePath("/admin");

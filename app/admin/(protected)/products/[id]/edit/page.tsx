@@ -1,10 +1,18 @@
 import { notFound, redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPrismaClient } from "@/lib/db";
 import ProductForm from "@/app/admin/components/ProductForm";
 
 export const dynamic = "force-dynamic";
 
 export default async function EditProductPage({ params }: { params: { id: string } }) {
+  if (!process.env.DATABASE_URL) {
+    return null;
+  }
+
+  const prisma = await getPrismaClient();
+  if (!prisma) {
+    return null;
+  }
   const product = await prisma.product.findUnique({ where: { id: params.id } });
   if (!product) {
     notFound();
@@ -12,6 +20,10 @@ export default async function EditProductPage({ params }: { params: { id: string
 
   async function updateProduct(formData: FormData) {
     "use server";
+    const prisma = await getPrismaClient();
+    if (!prisma) {
+      return;
+    }
     const images = JSON.parse(String(formData.get("images") ?? "[]")) as string[];
     const colorsRaw = String(formData.get("colors") ?? "");
     const colors = colorsRaw

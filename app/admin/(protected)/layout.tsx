@@ -1,8 +1,22 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin-auth";
+import { isDatabaseConfigured } from "@/lib/db";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   requireAdmin();
+
+  if (!isDatabaseConfigured()) {
+    return (
+      <div className="container pb-20 pt-10">
+        <div className="rounded-3xl p-8 shadow-sm surface card-hover">
+          <h1 className="text-2xl font-semibold">Database not configured</h1>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Set DATABASE_URL in your environment to enable the admin dashboard.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container pb-20 pt-10">

@@ -5,6 +5,7 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 export const sendOrderEmails = async (order: Order) => {
   if (!resend) {
+    console.warn("RESEND_API_KEY is not configured. Skipping order email send.");
     return;
   }
   const ownerEmail = process.env.STORE_OWNER_EMAIL;

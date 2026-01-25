@@ -212,7 +212,6 @@ export default function CheckoutPage() {
                           colorBackground: "#3a1a54",
                           colorText: "#f8f2ff",
                           colorTextSecondary: "#d8c7ee",
-                          colorBorder: "#5c2c7f",
                         },
                       },
                       loader: "auto",

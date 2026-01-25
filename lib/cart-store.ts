@@ -7,7 +7,8 @@ export type CartItem = {
   id: string;
   productId: string;
   name: string;
-  color: string;
+  image: string | null;
+  color: string | null;
   unit: CartUnit;
   length: number;
   priceAtAdd: number;

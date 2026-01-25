@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/cart-store";
 import { formatCurrency, formatUnit } from "@/lib/format";
 import { isValidLength } from "@/lib/validation";
-import FabricSwatch from "@/app/components/FabricSwatch";
+import ProductMedia from "@/app/components/ProductMedia";
 
 export default function CartPage() {
   const { items, removeItem, updateItem } = useCartStore();
@@ -38,7 +38,8 @@ export default function CartPage() {
                   className="flex flex-col gap-4 rounded-3xl p-6 shadow-sm surface card-hover sm:flex-row"
                 >
                   <div className="relative h-24 w-32 overflow-hidden rounded-2xl">
-                    <FabricSwatch
+                    <ProductMedia
+                      image={item.image}
                       color={item.color ?? "beige"}
                       label={item.name}
                       className="absolute inset-0"

@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  pricePerYard Int
+  pricePerMeter Int
+  currency     String
+  type         String
+  colors       String[]
+  description  String
+  images       String[]
+  inStock      Boolean  @default(true)
+  shippingProfile String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ShippingConfig {
+  id              String   @id @default(cuid())
+  kingstonFee     Int      @default(1500)
+  otherParishFee  Int      @default(2200)
+  pickupFee      Int      @default(0)
+  updatedAt      DateTime @updatedAt
+}
+
+model Order {
+  id                     String   @id @default(cuid())
+  email                  String
+  items                  Json
+  total                  Int
+  shipping               Int
+  parish                 String
+  deliveryMethod         String
+  status                 String   @default("pending")
+  stripePaymentIntentId  String   @unique
+  createdAt              DateTime @default(now())
+}

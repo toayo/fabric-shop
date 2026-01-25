@@ -1,10 +1,28 @@
 import Link from "next/link";
-import { fabricColors, fabricTypes, products } from "@/data/products";
+import { fabricColors, fabricTypes } from "@/data/products";
 import { colorMap } from "@/lib/color-map";
 import ProductCard from "@/app/components/ProductCard";
 import FabricSwatch from "@/app/components/FabricSwatch";
+import { getAllProducts } from "@/lib/products";
+import type { Metadata } from "next";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Harvey's | Premium Fabrics in Jamaica",
+  description:
+    "Shop premium Jamaican fabrics with boutique-level curation, modern checkout, and delivery options.",
+  openGraph: {
+    title: "Harvey's | Premium Fabrics in Jamaica",
+    description:
+      "Shop premium Jamaican fabrics with boutique-level curation, modern checkout, and delivery options.",
+    type: "website",
+  },
+};
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const products = await getAllProducts();
+  const heroProduct = products[0];
   return (
     <div className="pb-16">
       <section className="container grid gap-10 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -49,14 +67,20 @@ export default function Home() {
           </div>
         </div>
         <div className="relative h-[420px] overflow-hidden rounded-[32px] surface card-hover shadow-soft">
-          <FabricSwatch
-            color={products[1].color}
-            label={`${products[1].name} fabric swatch`}
-            className="absolute inset-0"
-          />
+          {heroProduct ? (
+            <FabricSwatch
+              color={heroProduct.colors[0] ?? "beige"}
+              label={`${heroProduct.name} fabric swatch`}
+              className="absolute inset-0"
+            />
+          ) : (
+            <div className="absolute inset-0 rounded-[32px] bg-[var(--surface2)]" />
+          )}
           <div className="relative flex h-full flex-col justify-end p-8 text-white">
             <p className="text-xs uppercase text-white/80">Featured fabric</p>
-            <h3 className="mt-2 text-2xl font-semibold">{products[1].name}</h3>
+            <h3 className="mt-2 text-2xl font-semibold">
+              {heroProduct?.name ?? "New arrivals"}
+            </h3>
             <p className="mt-2 text-sm text-white/80">
               Lightweight, breathable, and tailored for resort-ready silhouettes.
             </p>

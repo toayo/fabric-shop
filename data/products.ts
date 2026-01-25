@@ -1,5 +1,5 @@
-export type FabricProduct = {
-  id: string;
+export type FabricProductSeed = {
+  id?: string;
   name: string;
   slug: string;
   type: string;
@@ -37,7 +37,7 @@ export const fabricColors = [
   "multicolor",
 ] as const;
 
-export const products: FabricProduct[] = [
+export const seedProducts: FabricProductSeed[] = [
   {
     id: "cotton-sateen-midnight",
     name: "Midnight Cotton Sateen",
@@ -183,12 +183,3 @@ export const products: FabricProduct[] = [
     origin: "Mexico",
   }
 ];
-
-export const getProductBySlug = (slug: string) =>
-  products.find((product) => product.slug === slug);
-
-export const getProductsByType = (type: string) =>
-  products.filter((product) => product.type === type);
-
-export const getProductsByColor = (color: string) =>
-  products.filter((product) => product.color === color);

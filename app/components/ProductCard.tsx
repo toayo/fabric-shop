@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FabricProduct } from "@/data/products";
+import type { Product } from "@prisma/client";
 import { formatCurrency } from "@/lib/format";
-import FabricSwatch from "@/app/components/FabricSwatch";
+import ProductMedia from "@/app/components/ProductMedia";
 
-export default function ProductCard({ product }: { product: FabricProduct }) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
     <motion.div
       layout
@@ -17,11 +17,17 @@ export default function ProductCard({ product }: { product: FabricProduct }) {
     >
       <Link href={`/product/${product.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-          <FabricSwatch
-            color={product.color}
+          <ProductMedia
+            image={product.images[0] ?? undefined}
+            color={product.colors[0] ?? "beige"}
             label={product.name}
             className="absolute inset-0 transition duration-300 group-hover:scale-105"
           />
+          {!product.inStock && (
+            <span className="absolute left-3 top-3 rounded-full bg-black/50 px-3 py-1 text-[10px] uppercase tracking-wide text-white">
+              Out of stock
+            </span>
+          )}
         </div>
         <div className="mt-4 flex items-center justify-between">
           <div>

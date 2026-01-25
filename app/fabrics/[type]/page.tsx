@@ -1,15 +1,18 @@
 import { notFound } from "next/navigation";
-import { fabricTypes, getProductsByType } from "@/data/products";
+import { fabricTypes } from "@/data/products";
 import ProductCard from "@/app/components/ProductCard";
+import { getProductsByType } from "@/lib/products";
 
 const chipOptions = ["lightweight", "medium", "heavy", "printed", "solid"];
 
-export default function FabricTypePage({ params }: { params: { type: string } }) {
+export const dynamic = "force-dynamic";
+
+export default async function FabricTypePage({ params }: { params: { type: string } }) {
   const type = params.type;
   if (!fabricTypes.includes(type as (typeof fabricTypes)[number])) {
     notFound();
   }
-  const products = getProductsByType(type);
+  const products = await getProductsByType(type);
 
   return (
     <div className="container pb-20">
@@ -33,9 +36,15 @@ export default function FabricTypePage({ params }: { params: { type: string } })
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {products.length === 0 ? (
+          <div className="rounded-3xl p-8 shadow-sm surface">
+            <p className="text-sm text-[var(--muted)]">
+              No fabrics available for this category yet.
+            </p>
+          </div>
+        ) : (
+          products.map((product) => <ProductCard key={product.id} product={product} />)
+        )}
       </div>
     </div>
   );

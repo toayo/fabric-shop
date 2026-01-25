@@ -10,10 +10,10 @@ export default function SuccessPage() {
           delivery details.
         </p>
         <Link
-          href="/shop"
+          href="/order/success"
           className="btn-primary mt-6 inline-flex rounded-full px-6 py-3 text-sm font-semibold"
         >
-          Continue shopping
+          View order details
         </Link>
       </div>
     </div>

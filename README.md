@@ -22,6 +22,24 @@ App runs at `http://localhost:3000`.
 
 Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 
+## Admin dashboard usage
+
+1. Set the `ADMIN_PASSWORD` environment variable.
+2. Add `DATABASE_URL` and run `npx prisma db push` to create tables.
+3. Visit `/admin/login` and enter the password.
+4. Manage products, inventory, and shipping rates from `/admin`.
+
+## Product images (Cloudinary)
+
+This project uses Cloudinary URLs so the repo stays image-free.
+
+1. Create a Cloudinary account and upload preset.
+2. Set the following env vars:
+   - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+   - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
+3. Ensure the preset allows unsigned uploads from your Netlify domain.
+4. In the admin product form, click **Upload images** to add image URLs.
+
 ## Stripe + Apple Pay configuration
 
 1. **Create a Stripe account** and get your API keys.
@@ -41,6 +59,25 @@ Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 - `lib/` — utilities, cart store, formatting helpers
 - `netlify/functions/` — Stripe payment intent creation
 - `public/` — static assets (no bundled imagery)
+
+## Order emails
+
+Order confirmation emails are sent via Resend. Set `RESEND_API_KEY` and `STORE_OWNER_EMAIL`
+to notify the customer and store owner after payment confirmation.
+
+## Deploy checklist (Netlify env vars)
+
+- `ADMIN_PASSWORD`
+- `DATABASE_URL`
+- `STRIPE_SECRET_KEY`
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_STRIPE_CURRENCY` (default: `jmd`)
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+- `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`
+- `RESEND_API_KEY` (or `SENDGRID_API_KEY` if swapping providers)
+- `STORE_OWNER_EMAIL`
+- `NEXT_PUBLIC_SITE_URL`
 
 ## Notes
 

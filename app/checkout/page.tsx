@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/cart-store";
 import { formatCurrency } from "@/lib/format";
 import CartSummary from "@/app/components/CartSummary";
+import { parishes } from "@/lib/locations";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
@@ -29,7 +30,7 @@ function CheckoutForm({ clientSecret }: { clientSecret: string }) {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/success`,
+        return_url: `${window.location.origin}/order/success`,
       },
     });
 
@@ -56,7 +57,7 @@ function CheckoutForm({ clientSecret }: { clientSecret: string }) {
 
 export default function CheckoutPage() {
   const items = useCartStore((state) => state.items);
-  const total = useMemo(
+  const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + item.priceAtAdd * item.length, 0),
     [items]
   );
@@ -64,17 +65,67 @@ export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [customer, setCustomer] = useState({ name: "", email: "" });
+  const [shippingConfig, setShippingConfig] = useState<{
+    kingstonFee: number;
+    otherParishFee: number;
+    pickupFee: number;
+  } | null>(null);
+  const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("delivery");
+  const [parish, setParish] = useState("Kingston");
+
+  useEffect(() => {
+    fetch("/api/shipping-config")
+      .then((res) => res.json())
+      .then((data) => setShippingConfig(data))
+      .catch(() => setShippingConfig(null));
+  }, []);
+
+  const shippingFee = useMemo(() => {
+    if (!shippingConfig) {
+      return 0;
+    }
+    if (deliveryMethod === "pickup") {
+      return shippingConfig.pickupFee;
+    }
+    const normalized = parish.toLowerCase();
+    const isKingston =
+      normalized === "kingston" || normalized === "st. andrew" || normalized === "st andrew";
+    return isKingston ? shippingConfig.kingstonFee : shippingConfig.otherParishFee;
+  }, [deliveryMethod, parish, shippingConfig]);
+
+  const total = subtotal + shippingFee;
+
+  useEffect(() => {
+    if (step < 4) {
+      setClientSecret(null);
+    }
+  }, [step]);
+
+  useEffect(() => {
+    setClientSecret(null);
+  }, [deliveryMethod, parish, shippingFee]);
+
+  useEffect(() => {
+    setClientSecret(null);
+  }, [customer.email]);
 
   useEffect(() => {
     const createIntent = async () => {
-      if (items.length === 0) {
+      if (items.length === 0 || !customer.email || step < 4 || clientSecret) {
         return;
       }
       try {
+        const orderParish = deliveryMethod === "pickup" ? "Pickup" : parish;
         const response = await fetch("/.netlify/functions/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items }),
+          body: JSON.stringify({
+            items,
+            shipping: shippingFee,
+            parish: orderParish,
+            deliveryMethod,
+            email: customer.email,
+          }),
         });
         const data = await response.json();
         if (data.error) {
@@ -88,7 +139,7 @@ export default function CheckoutPage() {
     };
 
     createIntent();
-  }, [items]);
+  }, [items, customer.email, deliveryMethod, parish, shippingFee, step]);
 
   if (items.length === 0) {
     return (
@@ -112,11 +163,11 @@ export default function CheckoutPage() {
           <div className="flex items-center gap-3 text-xs uppercase text-[var(--muted)]">
             <span className={step >= 1 ? "text-[var(--accent)]" : ""}>Cart summary</span>
             <span>→</span>
-            <span className={step >= 2 ? "text-[var(--accent)]" : ""}>
-              Customer info
-            </span>
+            <span className={step >= 2 ? "text-[var(--accent)]" : ""}>Shipping</span>
             <span>→</span>
-            <span className={step >= 3 ? "text-[var(--accent)]" : ""}>Payment</span>
+            <span className={step >= 3 ? "text-[var(--accent)]" : ""}>Customer info</span>
+            <span>→</span>
+            <span className={step >= 4 ? "text-[var(--accent)]" : ""}>Payment</span>
           </div>
           <AnimatePresence mode="wait">
             {step === 1 && (
@@ -149,6 +200,70 @@ export default function CheckoutPage() {
                 className="mt-6 space-y-4"
               >
                 <div>
+                  <label className="text-xs uppercase text-[var(--muted)]">
+                    Delivery method
+                  </label>
+                  <div className="mt-2 flex flex-wrap gap-3">
+                    {(["delivery", "pickup"] as const).map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setDeliveryMethod(option)}
+                        className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                          deliveryMethod === option ? "btn-primary shadow-soft" : "btn-secondary"
+                        }`}
+                      >
+                        {option === "delivery" ? "Delivery" : "Pickup"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {deliveryMethod === "delivery" && (
+                  <div>
+                    <label className="text-xs uppercase text-[var(--muted)]">Parish</label>
+                    <select
+                      value={parish}
+                      onChange={(event) => setParish(event.target.value)}
+                      className="input-theme mt-2 w-full rounded-full px-4 py-3 text-sm"
+                    >
+                      {parishes.map((value) => (
+                        <option key={value} value={value}>
+                          {value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <div className="rounded-2xl border border-theme p-4 text-sm text-[var(--muted)]">
+                  <p className="font-semibold text-[var(--text)]">Shipping total</p>
+                  <p className="mt-1">{formatCurrency(shippingFee, "JMD")}</p>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setStep(1)}
+                    className="btn-secondary rounded-full px-6 py-3 text-sm font-semibold"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={() => setStep(3)}
+                    className="btn-primary rounded-full px-6 py-3 text-sm font-semibold"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </motion.div>
+            )}
+            {step === 3 && (
+              <motion.div
+                key="step-3"
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.3 }}
+                className="mt-6 space-y-4"
+              >
+                <div>
                   <label className="text-xs uppercase text-[var(--muted)]">Name</label>
                   <input
                     type="text"
@@ -172,13 +287,13 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex gap-3">
                   <button
-                    onClick={() => setStep(1)}
+                    onClick={() => setStep(2)}
                     className="btn-secondary rounded-full px-6 py-3 text-sm font-semibold"
                   >
                     Back
                   </button>
                   <button
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(4)}
                     className="btn-primary rounded-full px-6 py-3 text-sm font-semibold"
                   >
                     Continue to payment
@@ -186,9 +301,9 @@ export default function CheckoutPage() {
                 </div>
               </motion.div>
             )}
-            {step === 3 && (
+            {step === 4 && (
               <motion.div
-                key="step-3"
+                key="step-4"
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -12 }}
@@ -228,9 +343,20 @@ export default function CheckoutPage() {
           <CartSummary items={items} />
           <div className="mt-6 rounded-3xl p-6 text-sm text-[var(--muted)] shadow-sm surface card-hover">
             <p className="font-semibold text-[var(--text)]">Total due</p>
-            <p className="mt-2 text-2xl font-semibold">
-              {formatCurrency(total, items[0]?.currency ?? "JMD")}
-            </p>
+            <div className="mt-2 space-y-2 text-sm text-[var(--muted)]">
+              <div className="flex items-center justify-between">
+                <span>Subtotal</span>
+                <span>{formatCurrency(subtotal, items[0]?.currency ?? "JMD")}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Shipping</span>
+                <span>{formatCurrency(shippingFee, "JMD")}</span>
+              </div>
+              <div className="flex items-center justify-between text-base font-semibold text-[var(--text)]">
+                <span>Total</span>
+                <span>{formatCurrency(total, items[0]?.currency ?? "JMD")}</span>
+              </div>
+            </div>
             <p className="mt-2 text-xs">
               Payments processed securely with Stripe. Apple Pay requires domain verification
               in the Stripe dashboard.

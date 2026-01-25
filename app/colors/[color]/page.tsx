@@ -1,14 +1,17 @@
 import { notFound } from "next/navigation";
-import { fabricColors, getProductsByColor } from "@/data/products";
+import { fabricColors } from "@/data/products";
 import ProductCard from "@/app/components/ProductCard";
 import { colorMap } from "@/lib/color-map";
+import { getProductsByColor } from "@/lib/products";
 
-export default function ColorPage({ params }: { params: { color: string } }) {
+export const dynamic = "force-dynamic";
+
+export default async function ColorPage({ params }: { params: { color: string } }) {
   const color = params.color;
   if (!fabricColors.includes(color as (typeof fabricColors)[number])) {
     notFound();
   }
-  const products = getProductsByColor(color);
+  const products = await getProductsByColor(color);
 
   return (
     <div className="container pb-20">
@@ -29,9 +32,15 @@ export default function ColorPage({ params }: { params: { color: string } }) {
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {products.length === 0 ? (
+          <div className="rounded-3xl p-8 shadow-sm surface">
+            <p className="text-sm text-[var(--muted)]">
+              No fabrics available for this color yet.
+            </p>
+          </div>
+        ) : (
+          products.map((product) => <ProductCard key={product.id} product={product} />)
+        )}
       </div>
     </div>
   );

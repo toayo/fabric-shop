@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Product } from "@prisma/client";
+import type { ProductWithCurrency } from "@/lib/products";
 import { formatCurrency, formatUnit } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
 import { isValidLength } from "@/lib/validation";
@@ -9,7 +9,11 @@ import QuantityStepper from "@/app/components/QuantityStepper";
 import ProductMedia from "@/app/components/ProductMedia";
 import { motion } from "framer-motion";
 
-export default function ProductDetailClient({ product }: { product: Product }) {
+export default function ProductDetailClient({
+  product,
+}: {
+  product: ProductWithCurrency;
+}) {
   const addItem = useCartStore((state) => state.addItem);
   const [selectedImage, setSelectedImage] = useState(0);
   const [unit, setUnit] = useState<"yard" | "meter">("yard");

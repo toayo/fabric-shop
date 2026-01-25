@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { Product } from "@prisma/client";
+import type { ProductWithCurrency } from "@/lib/products";
 import { formatCurrency } from "@/lib/format";
 import ProductMedia from "@/app/components/ProductMedia";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product }: { product: ProductWithCurrency }) {
   return (
     <motion.div
       layout

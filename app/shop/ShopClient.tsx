@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Product } from "@prisma/client";
+import type { ProductWithCurrency } from "@/lib/products";
 import ProductCard from "@/app/components/ProductCard";
 import FilterTabs from "@/app/components/FilterTabs";
 import SkeletonCard from "@/app/components/SkeletonCard";
@@ -15,7 +15,7 @@ const colorOptions = [{ label: "All", value: "all" }].concat(
   fabricColors.map((color) => ({ label: color, value: color }))
 );
 
-export default function ShopClient({ products }: { products: Product[] }) {
+export default function ShopClient({ products }: { products: ProductWithCurrency[] }) {
   const [type, setType] = useState("all");
   const [color, setColor] = useState("all");
   const [query, setQuery] = useState("");

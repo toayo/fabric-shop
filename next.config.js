@@ -4,6 +4,9 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
   },
+  env: {
+    NEXT_PUBLIC_GMAIL_ONLY: process.env.GMAIL_ONLY ?? "false",
+  },
   reactStrictMode: true,
 };
 

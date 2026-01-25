@@ -24,10 +24,14 @@ type OrderResponse = {
 export default function OrderSuccessPage() {
   const params = useSearchParams();
   const paymentIntent = params.get("payment_intent");
+  const paypalOrderId = params.get("paypal_order_id");
   const [order, setOrder] = useState<OrderResponse | null>(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (paypalOrderId) {
+      return;
+    }
     if (!paymentIntent) {
       setError("Missing payment reference.");
       return;
@@ -42,13 +46,23 @@ export default function OrderSuccessPage() {
         setOrder(data);
       })
       .catch(() => setError("Unable to load order confirmation."));
-  }, [paymentIntent]);
+  }, [paymentIntent, paypalOrderId]);
 
   return (
     <div className="container pb-20 pt-10">
       <div className="rounded-3xl p-10 shadow-sm surface card-hover">
         <h1 className="text-3xl font-semibold">Order confirmed</h1>
-        {error ? (
+        {paypalOrderId ? (
+          <>
+            <p className="mt-3 text-sm text-[var(--muted)]">
+              Thank you for shopping with Harvey&apos;s. Your PayPal reference is{" "}
+              <span className="font-semibold text-[var(--text)]">{paypalOrderId}</span>.
+            </p>
+            <p className="mt-4 text-sm text-[var(--muted)]">
+              We&apos;ll follow up with delivery details by email.
+            </p>
+          </>
+        ) : error ? (
           <p className="mt-3 text-sm text-red-200">{error}</p>
         ) : order ? (
           <>

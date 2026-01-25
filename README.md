@@ -77,6 +77,8 @@ Required for a fully functional production deployment:
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 - `RESEND_API_KEY`
+- `PAYPAL_CLIENT_ID`
+- `PAYPAL_CLIENT_SECRET`
 
 Optional (feature-specific):
 
@@ -85,6 +87,7 @@ Optional (feature-specific):
 - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`
 - `STORE_OWNER_EMAIL`
+- `GMAIL_ONLY` (set to `true` to require Gmail addresses)
 
 ## Notes
 

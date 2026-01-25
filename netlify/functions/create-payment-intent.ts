@@ -28,6 +28,8 @@ export const handler = async (event: { body?: string }) => {
     const parish = String(payload?.parish ?? "");
     const deliveryMethod = String(payload?.deliveryMethod ?? "delivery");
     const email = String(payload?.email ?? "");
+    const fullName = String(payload?.fullName ?? "");
+    const shippingDetails = payload?.shippingDetails ?? null;
 
     if (!Array.isArray(items) || items.length === 0) {
       return {
@@ -66,6 +68,24 @@ export const handler = async (event: { body?: string }) => {
       automatic_payment_methods: {
         enabled: true,
       },
+      metadata: {
+        email,
+        parish,
+        deliveryMethod,
+      },
+      shipping:
+        deliveryMethod === "delivery" && shippingDetails
+          ? {
+              name: fullName || email,
+              address: {
+                line1: String(shippingDetails.addressLine1 ?? ""),
+                line2: String(shippingDetails.addressLine2 ?? "") || undefined,
+                city: String(shippingDetails.city ?? ""),
+                postal_code: String(shippingDetails.postalCode ?? "") || undefined,
+                country: "JM",
+              },
+            }
+          : undefined,
     });
 
     const order = await prisma.order.create({
@@ -78,6 +98,15 @@ export const handler = async (event: { body?: string }) => {
         deliveryMethod,
         status: "pending",
         stripePaymentIntentId: paymentIntent.id,
+      },
+    });
+
+    await stripe.paymentIntents.update(paymentIntent.id, {
+      metadata: {
+        orderId: order.id,
+        email,
+        parish,
+        deliveryMethod,
       },
     });
 

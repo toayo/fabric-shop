@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { motion, AnimatePresence } from "framer-motion";
-import { z } from "zod";
 import { useCartStore } from "@/lib/cart-store";
 import { formatCurrency } from "@/lib/format";
 import CartSummary from "@/app/components/CartSummary";
@@ -52,33 +51,36 @@ const isValidPhone = (value: string) => {
   return /^[+\d][\d\s-]*$/.test(value.trim());
 };
 
-const getShippingSchema = (gmailOnly: boolean, deliveryMethod: "delivery" | "pickup") =>
-  z.object({
-    fullName: z.string().min(2, "Full name is required."),
-    email: z
-      .string()
-      .regex(emailRegex, "Enter a valid email address.")
-      .refine(
-        (value) => !gmailOnly || value.toLowerCase().endsWith("@gmail.com"),
-        "Email must be a @gmail.com address."
-      ),
-    phone: z.string().refine(isValidPhone, "Enter a valid phone number."),
-    addressLine1:
-      deliveryMethod === "delivery"
-        ? z.string().min(5, "Address line 1 must be at least 5 characters.")
-        : z.string().optional(),
-    addressLine2: z.string().optional(),
-    parish:
-      deliveryMethod === "delivery"
-        ? z.string().min(1, "Select a parish.")
-        : z.string().optional(),
-    city:
-      deliveryMethod === "delivery"
-        ? z.string().min(2, "City/Town must be at least 2 characters.")
-        : z.string().optional(),
-    postalCode: z.string().optional(),
-    deliveryNotes: z.string().optional(),
-  });
+const validateShippingForm = (
+  form: ShippingFormState,
+  gmailOnly: boolean,
+  deliveryMethod: "delivery" | "pickup"
+) => {
+  const errors: ShippingFormErrors = {};
+  if (!form.fullName.trim() || form.fullName.trim().length < 2) {
+    errors.fullName = "Full name is required.";
+  }
+  if (!emailRegex.test(form.email.trim())) {
+    errors.email = "Enter a valid email address.";
+  } else if (gmailOnly && !form.email.trim().toLowerCase().endsWith("@gmail.com")) {
+    errors.email = "Email must be a @gmail.com address.";
+  }
+  if (!isValidPhone(form.phone)) {
+    errors.phone = "Enter a valid phone number.";
+  }
+  if (deliveryMethod === "delivery") {
+    if (!form.addressLine1.trim() || form.addressLine1.trim().length < 5) {
+      errors.addressLine1 = "Address line 1 must be at least 5 characters.";
+    }
+    if (!form.parish.trim()) {
+      errors.parish = "Select a parish.";
+    }
+    if (!form.city.trim() || form.city.trim().length < 2) {
+      errors.city = "City/Town must be at least 2 characters.";
+    }
+  }
+  return errors;
+};
 
 function CheckoutForm({
   clientSecret,
@@ -610,16 +612,12 @@ export default function CheckoutPage() {
                   </button>
                   <button
                     onClick={() => {
-                      const schema = getShippingSchema(getGmailOnlyFlag(), deliveryMethod);
-                      const result = schema.safeParse(shippingForm);
-                      if (!result.success) {
-                        const nextErrors: ShippingFormErrors = {};
-                        result.error.errors.forEach((issue) => {
-                          const field = issue.path[0] as keyof ShippingFormState;
-                          if (field) {
-                            nextErrors[field] = issue.message;
-                          }
-                        });
+                      const nextErrors = validateShippingForm(
+                        shippingForm,
+                        getGmailOnlyFlag(),
+                        deliveryMethod
+                      );
+                      if (Object.keys(nextErrors).length > 0) {
                         setFormErrors(nextErrors);
                         setShowErrorSummary(true);
                         return;

@@ -25,9 +25,8 @@ Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 ## Admin dashboard usage
 
 1. Set the `ADMIN_PASSWORD` environment variable.
-2. Add `DATABASE_URL` and run `npx prisma db push` to create tables.
-3. Visit `/admin/login` and enter the password.
-4. Manage products, inventory, and shipping rates from `/admin`.
+2. Visit `/admin/login` and enter the password.
+3. Manage products and shipping rates from `/admin` when database features are enabled.
 
 ## Product images (Cloudinary)
 
@@ -62,8 +61,7 @@ This project uses Cloudinary URLs so the repo stays image-free.
 
 ## Order emails
 
-Order confirmation emails are sent via Resend. Set `RESEND_API_KEY` and `STORE_OWNER_EMAIL`
-to notify the customer and store owner after payment confirmation.
+Order confirmation emails are not configured in this static build.
 
 ## Deploy checklist (Netlify env vars)
 
@@ -72,11 +70,9 @@ to notify the customer and store owner after payment confirmation.
 Required for a fully functional production deployment:
 
 - `ADMIN_PASSWORD`
-- `DATABASE_URL`
 - `STRIPE_SECRET_KEY`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
-- `RESEND_API_KEY`
 - `PAYPAL_CLIENT_ID`
 - `PAYPAL_CLIENT_SECRET`
 
@@ -86,7 +82,6 @@ Optional (feature-specific):
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
 - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`
-- `STORE_OWNER_EMAIL`
 - `GMAIL_ONLY` (set to `true` to require Gmail addresses)
 
 ## Notes

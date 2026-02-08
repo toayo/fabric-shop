@@ -1,6 +1,5 @@
 import Stripe from "stripe";
-import { isValidLength } from "../../lib/validation";
-import { getPrismaClient } from "../../lib/db";
+import { isValidQuantity } from "../../lib/validation";
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -14,14 +13,6 @@ const stripe = new Stripe(stripeSecretKey, {
 
 export const handler = async (event: { body?: string }) => {
   try {
-    const prisma = await getPrismaClient();
-    if (!prisma) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Database not configured." }),
-      };
-    }
-
     const payload = event.body ? JSON.parse(event.body) : null;
     const items = payload?.items ?? [];
     const shipping = Number(payload?.shipping ?? 0);
@@ -50,10 +41,11 @@ export const handler = async (event: { body?: string }) => {
     let amount = 0;
     for (const item of items) {
       const length = Number(item.length);
-      if (!isValidLength(length)) {
+      const unit = (item.unit ?? "yard") as "yard" | "meter" | "spool";
+      if (!isValidQuantity(length, unit)) {
         return {
           statusCode: 400,
-          body: JSON.stringify({ error: "Invalid length value." }),
+          body: JSON.stringify({ error: "Invalid quantity value." }),
         };
       }
       amount += Number(item.priceAtAdd) * length;
@@ -88,33 +80,11 @@ export const handler = async (event: { body?: string }) => {
           : undefined,
     });
 
-    const order = await prisma.order.create({
-      data: {
-        email,
-        items,
-        total: Math.round(total),
-        shipping: Math.round(shipping),
-        parish,
-        deliveryMethod,
-        status: "pending",
-        stripePaymentIntentId: paymentIntent.id,
-      },
-    });
-
-    await stripe.paymentIntents.update(paymentIntent.id, {
-      metadata: {
-        orderId: order.id,
-        email,
-        parish,
-        deliveryMethod,
-      },
-    });
-
     return {
       statusCode: 200,
       body: JSON.stringify({
         clientSecret: paymentIntent.client_secret,
-        orderId: order.id,
+        orderId: paymentIntent.id,
       }),
     };
   } catch (error) {

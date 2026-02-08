@@ -4,7 +4,7 @@ import { colorMap } from "@/lib/color-map";
 import ProductCard from "@/app/components/ProductCard";
 import FabricSwatch from "@/app/components/FabricSwatch";
 import { getAllProducts } from "@/lib/products";
-import { formatCategoryName } from "@/lib/format";
+import { formatCategoryName, formatColorName } from "@/lib/format";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -151,9 +151,9 @@ export default async function Home() {
                 style={{ backgroundColor: colorMap[color] ?? color }}
               />
               <p className="text-xs uppercase text-[var(--muted)]">Palette</p>
-              <h3 className="mt-2 text-lg font-semibold capitalize">{color}</h3>
+              <h3 className="mt-2 text-lg font-semibold">{formatColorName(color)}</h3>
               <p className="mt-3 text-sm text-[var(--muted)]">
-                Shop all fabrics in {color} tones.
+                Shop all fabrics in {formatColorName(color)} tones.
               </p>
             </Link>
           ))}

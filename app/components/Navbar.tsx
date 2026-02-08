@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { fabricColors, fabricTypes } from "@/data/products";
+import { formatCategoryName, formatColorName } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
@@ -65,7 +66,7 @@ export default function Navbar() {
                       href={`/fabrics/${type}`}
                       className="text-sm capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                     >
-                      {type}
+                      {formatCategoryName(type)}
                     </Link>
                   ))}
                 </motion.div>
@@ -100,7 +101,7 @@ export default function Navbar() {
                       href={`/colors/${color}`}
                       className="text-sm capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                     >
-                      {color}
+                      {formatColorName(color)}
                     </Link>
                   ))}
                 </motion.div>
@@ -168,7 +169,7 @@ export default function Navbar() {
                         className="capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                         onClick={() => setMenuOpen(false)}
                       >
-                        {type}
+                        {formatCategoryName(type)}
                       </Link>
                     ))}
                   </div>
@@ -183,7 +184,7 @@ export default function Navbar() {
                         className="capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                         onClick={() => setMenuOpen(false)}
                       >
-                        {color}
+                        {formatColorName(color)}
                       </Link>
                     ))}
                   </div>

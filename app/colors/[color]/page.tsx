@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { fabricColors } from "@/data/products";
 import ProductCard from "@/app/components/ProductCard";
 import { colorMap } from "@/lib/color-map";
+import { formatColorName } from "@/lib/format";
 import { getProductsByColor } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
@@ -24,9 +25,9 @@ export default async function ColorPage({ params }: { params: { color: string } 
         />
         <div className="relative">
           <p className="text-xs uppercase text-[var(--muted)]">Color story</p>
-          <h1 className="mt-2 text-3xl font-semibold capitalize">{color}</h1>
+          <h1 className="mt-2 text-3xl font-semibold">{formatColorName(color)}</h1>
           <p className="mt-3 text-sm text-[var(--muted)]">
-            Fabrics in {color} tones, hand-selected for Jamaica&apos;s designers and stylists.
+            Fabrics in {formatColorName(color)} tones, hand-selected for Jamaica&apos;s designers and stylists.
           </p>
         </div>
       </div>

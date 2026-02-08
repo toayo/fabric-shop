@@ -27,3 +27,6 @@ export const formatCategoryName = (value: string) =>
     .split(/[\s-]+/)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+
+export const formatColorName = (value: string) =>
+  value === "multicolor" ? "Multicolor" : formatCategoryName(value);

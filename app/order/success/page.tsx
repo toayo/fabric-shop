@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { formatCurrency } from "@/lib/format";
+import { formatCurrency, formatQuantity } from "@/lib/format";
 
 type OrderResponse = {
   id: string;
@@ -11,7 +11,7 @@ type OrderResponse = {
   items: Array<{
     name: string;
     length: number;
-    unit: string;
+    unit: "yard" | "meter" | "spool";
     priceAtAdd: number;
     currency: string;
   }>;
@@ -77,7 +77,8 @@ export default function OrderSuccessPage() {
                   className="flex justify-between"
                 >
                   <span>
-                    {item.name} · {item.length} {item.unit}
+                    {item.name} · {formatQuantity(item.length, item.unit)} {item.unit}
+                    {item.length === 1 ? "" : "s"}
                   </span>
                   <span>{formatCurrency(item.priceAtAdd * item.length, item.currency)}</span>
                 </div>

@@ -4,6 +4,7 @@ import { colorMap } from "@/lib/color-map";
 import ProductCard from "@/app/components/ProductCard";
 import FabricSwatch from "@/app/components/FabricSwatch";
 import { getAllProducts } from "@/lib/products";
+import { formatCategoryName } from "@/lib/format";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const products = await getAllProducts();
   const heroProduct = products[0];
+  const crochetThreads = products.filter((product) => product.type === "crochet-threads");
   return (
     <div className="pb-16">
       <section className="container grid gap-10 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -103,14 +105,31 @@ export default async function Home() {
               className="group rounded-3xl p-6 shadow-sm surface card-hover transition hover:-translate-y-1"
             >
               <p className="text-xs uppercase text-[var(--muted)]">Category</p>
-              <h3 className="mt-2 text-lg font-semibold capitalize">{type}</h3>
+              <h3 className="mt-2 text-lg font-semibold">{formatCategoryName(type)}</h3>
               <p className="mt-3 text-sm text-[var(--muted)]">
-                Premium {type} fabrics for tailored silhouettes and modern interiors.
+                Premium {formatCategoryName(type)} for tailored silhouettes and modern interiors.
               </p>
               <span className="mt-4 inline-flex text-sm font-semibold text-accent">
-                Shop {type}
+                Shop {formatCategoryName(type)}
               </span>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container mt-20">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold">Crochet Threads</h2>
+            <p className="mt-2 text-sm text-[var(--muted)]">Browse crochet thread by color.</p>
+          </div>
+          <Link href="/fabrics/crochet-threads" className="text-sm text-accent">
+            Shop Crochet Threads
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {crochetThreads.slice(0, 8).map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useCartStore } from "@/lib/cart-store";
-import { formatCurrency } from "@/lib/format";
+import { formatCurrency, formatQuantity } from "@/lib/format";
 
 export default function WhatsappButton() {
   const items = useCartStore((state) => state.items);
@@ -14,7 +14,7 @@ export default function WhatsappButton() {
     }
     const lines = items.map(
       (item) =>
-        `${item.name} · ${item.length} ${item.unit} · ${formatCurrency(
+        `${item.name} · ${formatQuantity(item.length, item.unit)} ${item.unit} · ${formatCurrency(
           item.priceAtAdd * item.length,
           item.currency
         )}`

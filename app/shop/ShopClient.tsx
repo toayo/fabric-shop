@@ -7,9 +7,10 @@ import ProductCard from "@/app/components/ProductCard";
 import FilterTabs from "@/app/components/FilterTabs";
 import SkeletonCard from "@/app/components/SkeletonCard";
 import { fabricColors, fabricTypes } from "@/data/products";
+import { formatCategoryName } from "@/lib/format";
 
 const typeOptions = [{ label: "All", value: "all" }].concat(
-  fabricTypes.map((type) => ({ label: type, value: type }))
+  fabricTypes.map((type) => ({ label: formatCategoryName(type), value: type }))
 );
 const colorOptions = [{ label: "All", value: "all" }].concat(
   fabricColors.map((color) => ({ label: color, value: color }))

@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/cart-store";
-import { formatCurrency, formatUnit } from "@/lib/format";
-import { isValidLength } from "@/lib/validation";
+import { formatCurrency, formatQuantity, formatUnit } from "@/lib/format";
+import { isValidQuantity } from "@/lib/validation";
 import ProductMedia from "@/app/components/ProductMedia";
 
 export default function CartPage() {
@@ -50,7 +50,9 @@ export default function CartPage() {
                       <div>
                         <h3 className="text-sm font-semibold">{item.name}</h3>
                         <p className="text-xs text-[var(--muted)]">
-                          {formatUnit(item.unit)} · {item.length.toFixed(2)} {item.unit}s
+                          {formatUnit(item.unit)} · {formatQuantity(item.length, item.unit)}{" "}
+                          {item.unit}
+                          {item.length === 1 ? "" : "s"}
                         </p>
                       </div>
                       <button
@@ -62,16 +64,17 @@ export default function CartPage() {
                     </div>
                     <div className="flex flex-wrap items-center gap-4">
                       <label className="text-xs uppercase text-[var(--muted)]">
-                        Length
+                        {item.unit === "spool" ? "Quantity" : "Length"}
                         <input
                           type="number"
-                          step={0.25}
-                          min={0.25}
+                          step={item.unit === "spool" ? 1 : 0.25}
+                          min={item.unit === "spool" ? 1 : 0.25}
                           defaultValue={item.length}
                           onBlur={(event) => {
                             const parsed = Number.parseFloat(event.target.value);
-                            if (isValidLength(parsed)) {
-                              updateItem(item.id, { length: parsed });
+                            const normalized = item.unit === "spool" ? Math.round(parsed) : parsed;
+                            if (isValidQuantity(normalized, item.unit)) {
+                              updateItem(item.id, { length: normalized });
                             }
                           }}
                           className="input-theme ml-2 w-20 rounded-full px-2 py-1 text-xs"

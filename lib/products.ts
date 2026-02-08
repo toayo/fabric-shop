@@ -24,7 +24,7 @@ const fallbackProducts: ProductWithCurrency[] = seedProducts.map((product) => ({
   type: product.type,
   colors: [product.color],
   description: product.description,
-  images: [],
+  images: product.images ?? [],
   inStock: true,
   shippingProfile: null,
   createdAt: new Date(),

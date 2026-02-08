@@ -1,5 +1,5 @@
 import { CartItem } from "@/lib/cart-store";
-import { formatCurrency, formatUnit } from "@/lib/format";
+import { formatCurrency, formatQuantity, formatUnit } from "@/lib/format";
 
 export default function CartSummary({ items }: { items: CartItem[] }) {
   const total = items.reduce((sum, item) => sum + item.priceAtAdd * item.length, 0);
@@ -13,7 +13,8 @@ export default function CartSummary({ items }: { items: CartItem[] }) {
             <div>
               <p className="font-medium">{item.name}</p>
               <p className="text-xs text-[var(--muted)]">
-                {item.length.toFixed(2)} {item.unit}s · {formatUnit(item.unit)}
+                {formatQuantity(item.length, item.unit)} {item.unit}
+                {item.length === 1 ? "" : "s"} · {formatUnit(item.unit)}
               </p>
             </div>
             <span>{formatCurrency(item.priceAtAdd * item.length, item.currency)}</span>

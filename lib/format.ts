@@ -12,5 +12,18 @@ export const formatCurrency = (amount: number, currency: string = "JMD") => {
   }
 };
 
-export const formatUnit = (unit: "yard" | "meter") =>
-  unit === "yard" ? "per yard" : "per meter";
+export const formatUnit = (unit: "yard" | "meter" | "spool") => {
+  if (unit === "spool") {
+    return "per spool";
+  }
+  return unit === "yard" ? "per yard" : "per meter";
+};
+
+export const formatQuantity = (value: number, unit: "yard" | "meter" | "spool") =>
+  unit === "spool" ? Math.round(value).toString() : value.toFixed(2);
+
+export const formatCategoryName = (value: string) =>
+  value
+    .split(/[\s-]+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");

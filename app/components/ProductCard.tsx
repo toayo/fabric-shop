@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { ProductWithCurrency } from "@/lib/products";
-import { formatCurrency } from "@/lib/format";
+import { formatCategoryName, formatCurrency } from "@/lib/format";
 import ProductMedia from "@/app/components/ProductMedia";
 
 export default function ProductCard({ product }: { product: ProductWithCurrency }) {
@@ -32,7 +32,9 @@ export default function ProductCard({ product }: { product: ProductWithCurrency 
         <div className="mt-4 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-semibold">{product.name}</h3>
-            <p className="text-xs capitalize text-[var(--muted)]">{product.type}</p>
+            <p className="text-xs capitalize text-[var(--muted)]">
+              {formatCategoryName(product.type)}
+            </p>
           </div>
           <span className="text-sm font-semibold text-accent">
             {formatCurrency(product.pricePerYard, product.currency)}

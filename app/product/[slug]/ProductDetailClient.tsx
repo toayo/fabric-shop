@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import type { ProductWithCurrency } from "@/lib/products";
-import { formatCurrency, formatUnit } from "@/lib/format";
+import { formatCategoryName, formatCurrency, formatUnit } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
-import { isValidLength } from "@/lib/validation";
+import { isValidQuantity } from "@/lib/validation";
 import QuantityStepper from "@/app/components/QuantityStepper";
 import ProductMedia from "@/app/components/ProductMedia";
 import { motion } from "framer-motion";
@@ -16,11 +16,16 @@ export default function ProductDetailClient({
 }) {
   const addItem = useCartStore((state) => state.addItem);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [unit, setUnit] = useState<"yard" | "meter">("yard");
-  const [length, setLength] = useState(1);
+  const unitOptions = product.type === "crochet-threads" ? (["spool"] as const) : ([
+    "yard",
+    "meter",
+  ] as const);
+  const [unit, setUnit] = useState<(typeof unitOptions)[number]>(unitOptions[0]);
+  const [length, setLength] = useState(unitOptions[0] === "spool" ? 1 : 1);
   const [error, setError] = useState<string | null>(null);
 
-  const unitPrice = unit === "yard" ? product.pricePerYard : product.pricePerMeter;
+  const unitPrice =
+    unit === "meter" ? product.pricePerMeter : product.pricePerYard;
   const total = unitPrice * length;
   const images = useMemo(
     () => (product.images?.length ? product.images : [null]),
@@ -29,8 +34,12 @@ export default function ProductDetailClient({
   const primaryColor = product.colors[0] ?? "beige";
 
   const handleAdd = () => {
-    if (!isValidLength(length)) {
-      setError("Please choose a valid length in 0.25 increments.");
+    if (!isValidQuantity(length, unit)) {
+      setError(
+        unit === "spool"
+          ? "Please choose a valid quantity."
+          : "Please choose a valid length in 0.25 increments."
+      );
       return;
     }
     setError(null);
@@ -78,7 +87,9 @@ export default function ProductDetailClient({
         </div>
       </div>
       <div>
-        <p className="text-xs uppercase text-[var(--muted)]">{product.type}</p>
+        <p className="text-xs uppercase text-[var(--muted)]">
+          {formatCategoryName(product.type)}
+        </p>
         <h1 className="mt-2 text-3xl font-semibold">{product.name}</h1>
         <p className="mt-3 text-sm text-[var(--muted)]">{product.description}</p>
         <div className="mt-6 space-y-4 rounded-3xl p-6 shadow-sm surface card-hover">
@@ -88,20 +99,26 @@ export default function ProductDetailClient({
               {formatCurrency(unitPrice, product.currency)} {formatUnit(unit)}
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            {(["yard", "meter"] as const).map((option) => (
-              <button
-                key={option}
-                onClick={() => setUnit(option)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                  unit === option ? "btn-primary shadow-soft" : "btn-secondary"
-                }`}
-              >
-                {option === "yard" ? "Per Yard" : "Per Meter"}
-              </button>
-            ))}
-          </div>
-          <QuantityStepper value={length} onChange={setLength} />
+          {unitOptions.length > 1 && (
+            <div className="flex flex-wrap gap-3">
+              {unitOptions.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setUnit(option)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    unit === option ? "btn-primary shadow-soft" : "btn-secondary"
+                  }`}
+                >
+                  {option === "yard"
+                    ? "Per Yard"
+                    : option === "meter"
+                      ? "Per Meter"
+                      : "Per Spool"}
+                </button>
+              ))}
+            </div>
+          )}
+          <QuantityStepper value={length} onChange={setLength} unit={unit} />
           <div className="flex items-center justify-between text-sm">
             <span>Total</span>
             <span className="text-lg font-semibold">

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { fabricTypes } from "@/data/products";
 import ProductCard from "@/app/components/ProductCard";
 import { getProductsByType } from "@/lib/products";
+import { formatCategoryName } from "@/lib/format";
 
 const chipOptions = ["lightweight", "medium", "heavy", "printed", "solid"];
 
@@ -17,10 +18,10 @@ export default async function FabricTypePage({ params }: { params: { type: strin
   return (
     <div className="container pb-20">
       <div className="rounded-3xl p-8 shadow-sm surface card-hover">
-        <p className="text-xs uppercase text-[var(--muted)]">Fabric type</p>
-        <h1 className="mt-2 text-3xl font-semibold capitalize">{type}</h1>
+        <p className="text-xs uppercase text-[var(--muted)]">Category</p>
+        <h1 className="mt-2 text-3xl font-semibold">{formatCategoryName(type)}</h1>
         <p className="mt-3 text-sm text-[var(--muted)]">
-          Explore our curated {type} selection, ideal for Jamaica&apos;s climate and
+          Explore our curated {formatCategoryName(type)} selection, ideal for Jamaica&apos;s climate and
           studio-ready tailoring.
         </p>
         <div className="mt-6 flex flex-wrap gap-2">

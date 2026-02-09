@@ -1,0 +1,15 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0 30)">
+    <g transform="translate(500 120)">
+      <circle cx="100" cy="100" r="96" stroke="#D9B86A" stroke-width="8" fill="none" />
+      <path d="M55 60 L55 140" stroke="#3B1C5A" stroke-width="10" stroke-linecap="round" />
+      <path d="M145 60 L145 140" stroke="#3B1C5A" stroke-width="10" stroke-linecap="round" />
+      <path d="M55 100 L145 100" stroke="#3B1C5A" stroke-width="10" stroke-linecap="round" />
+      <circle cx="145" cy="55" r="10" fill="#D9B86A" />
+      <path d="M145 45 C165 25 210 25 235 50" stroke="#D9B86A" stroke-width="6" stroke-linecap="round" />
+      <path d="M235 50 C265 80 260 120 230 150" stroke="#D9B86A" stroke-width="6" stroke-linecap="round" />
+      <path d="M230 150 C200 180 165 175 140 150" stroke="#D9B86A" stroke-width="6" stroke-linecap="round" />
+    </g>
+    <text x="600" y="520" text-anchor="middle" fill="#3B1C5A" font-size="96" font-family="'Playfair Display', 'Cormorant Garamond', 'Times New Roman', serif" letter-spacing="1">Harvey’s</text>
+  </g>
+</svg>

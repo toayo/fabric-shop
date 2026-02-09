@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,18 +8,9 @@ import { useCartStore } from "@/lib/cart-store";
 import { formatCurrency } from "@/lib/format";
 import CartSummary from "@/app/components/CartSummary";
 import { parishes } from "@/lib/locations";
+import PayPalButton from "@/app/components/PayPalButton";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
-);
-
-declare global {
-  interface Window {
-    paypal?: {
-      Buttons: (options: Record<string, unknown>) => { render: (selector: HTMLElement) => void };
-    };
-  }
-}
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
 type PaymentMethod = "stripe" | "paypal";
 
@@ -153,6 +144,7 @@ function CheckoutForm({
 
 export default function CheckoutPage() {
   const items = useCartStore((state) => state.items);
+  const clearCart = useCartStore((state) => state.clear);
   const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + item.priceAtAdd * item.length, 0),
     [items]
@@ -170,9 +162,6 @@ export default function CheckoutPage() {
   const [formErrors, setFormErrors] = useState<ShippingFormErrors>({});
   const [showErrorSummary, setShowErrorSummary] = useState(false);
   const [paypalError, setPaypalError] = useState<string | null>(null);
-  const [paypalClientId, setPaypalClientId] = useState<string | null>(null);
-  const [paypalReady, setPaypalReady] = useState(false);
-  const paypalContainerRef = useRef<HTMLDivElement | null>(null);
   const [shippingForm, setShippingForm] = useState<ShippingFormState>({
     fullName: "",
     email: "",
@@ -224,106 +213,8 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (paymentMethod !== "paypal") {
       setPaypalError(null);
-      return;
     }
-    if (paypalClientId) {
-      return;
-    }
-    fetch("/api/paypal/client-id")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          setPaypalError(data.error);
-          return;
-        }
-        if (data.clientId) {
-          setPaypalClientId(data.clientId);
-        }
-      })
-      .catch(() => {
-        setPaypalError("Unable to load PayPal. Please try again.");
-      });
-  }, [paymentMethod, paypalClientId]);
-
-  useEffect(() => {
-    if (paymentMethod !== "paypal" || !paypalClientId) {
-      return;
-    }
-    if (window.paypal) {
-      setPaypalReady(true);
-      return;
-    }
-    const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}&currency=${(
-      items[0]?.currency ?? "JMD"
-    ).toUpperCase()}`;
-    script.async = true;
-    script.onload = () => setPaypalReady(true);
-    script.onerror = () => setPaypalError("Unable to load PayPal. Please try again.");
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, [paymentMethod, paypalClientId, items]);
-
-  useEffect(() => {
-    if (!paypalReady || paymentMethod !== "paypal" || !paypalContainerRef.current) {
-      return;
-    }
-    paypalContainerRef.current.innerHTML = "";
-    setPaypalError(null);
-    window.paypal
-      ?.Buttons({
-        style: {
-          layout: "vertical",
-          color: "gold",
-          shape: "pill",
-          label: "pay",
-        },
-        createOrder: async () => {
-          const response = await fetch("/api/paypal/create-order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              items,
-              shipping: shippingFee,
-              email: shippingForm.email,
-              deliveryMethod,
-              shippingDetails: shippingForm,
-              currency: items[0]?.currency ?? "JMD",
-              total,
-            }),
-          });
-          const data = await response.json();
-          if (!response.ok || data.error) {
-            throw new Error(data.error || "Unable to create PayPal order.");
-          }
-          return data.orderId;
-        },
-        onApprove: async (data: { orderID: string }) => {
-          const response = await fetch("/api/paypal/capture-order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderId: data.orderID,
-              email: shippingForm.email,
-              deliveryMethod,
-              shippingDetails: shippingForm,
-            }),
-          });
-          const result = await response.json();
-          if (!response.ok || result.error) {
-            setPaypalError(result.error || "Unable to capture PayPal payment.");
-            return;
-          }
-          window.location.href = `/order/success?paypal_order_id=${data.orderID}`;
-        },
-        onError: () => {
-          setPaypalError("PayPal payment failed. Please try again.");
-        },
-      })
-      .render(paypalContainerRef.current);
-  }, [paypalReady, paymentMethod, shippingFee, shippingForm, deliveryMethod, items, total]);
+  }, [paymentMethod]);
 
   useEffect(() => {
     const createIntent = async () => {
@@ -646,8 +537,8 @@ export default function CheckoutPage() {
                   <p className="text-xs uppercase text-[var(--muted)]">Payment method</p>
                   <div className="mt-3 flex flex-wrap gap-3">
                     {([
-                      { id: "stripe", label: "Card / Apple Pay" },
-                      { id: "paypal", label: "PayPal" },
+                      { id: "stripe", label: "Pay with Card (Stripe)" },
+                      { id: "paypal", label: "Pay with PayPal" },
                     ] as const).map((option) => (
                       <button
                         key={option.id}
@@ -701,10 +592,33 @@ export default function CheckoutPage() {
                 {paymentMethod === "paypal" && (
                   <div className="space-y-4">
                     {paypalError && <p className="text-xs text-red-500">{paypalError}</p>}
-                    {!paypalReady && (
-                      <p className="text-sm text-[var(--muted)]">Loading PayPal...</p>
-                    )}
-                    <div ref={paypalContainerRef} />
+                    <PayPalButton
+                      items={items}
+                      shippingFee={shippingFee}
+                      total={total}
+                      currency="USD"
+                      deliveryMethod={deliveryMethod}
+                      shippingDetails={shippingForm}
+                      onError={setPaypalError}
+                      onSuccess={({ orderId }) => {
+                        const storedOrder = {
+                          id: orderId,
+                          email: shippingForm.email,
+                          items,
+                          total,
+                          shipping: shippingFee,
+                          parish:
+                            deliveryMethod === "pickup" ? "Pickup" : shippingForm.parish,
+                          deliveryMethod,
+                        };
+                        localStorage.setItem(
+                          "harveys-paypal-order",
+                          JSON.stringify(storedOrder)
+                        );
+                        clearCart();
+                        window.location.href = `/order/success?paypal_order_id=${orderId}`;
+                      }}
+                    />
                   </div>
                 )}
                 <div className="flex gap-3">

@@ -30,6 +30,14 @@ export default function OrderSuccessPage() {
 
   useEffect(() => {
     if (paypalOrderId) {
+      const stored = localStorage.getItem("harveys-paypal-order");
+      if (stored) {
+        try {
+          setOrder(JSON.parse(stored) as OrderResponse);
+        } catch (err) {
+          setError("Unable to read PayPal order details.");
+        }
+      }
       return;
     }
     if (!paymentIntent) {
@@ -58,9 +66,40 @@ export default function OrderSuccessPage() {
               Thank you for shopping with Harvey&apos;s. Your PayPal reference is{" "}
               <span className="font-semibold text-[var(--text)]">{paypalOrderId}</span>.
             </p>
-            <p className="mt-4 text-sm text-[var(--muted)]">
-              We&apos;ll follow up with delivery details by email.
-            </p>
+            {order ? (
+              <>
+                <div className="mt-6 space-y-3 rounded-2xl border border-theme p-4 text-sm text-[var(--muted)]">
+                  {(Array.isArray(order.items) ? order.items : []).map((item) => (
+                    <div
+                      key={`${item.name}-${item.unit}-${item.length}`}
+                      className="flex justify-between"
+                    >
+                      <span>
+                        {item.name} · {formatQuantity(item.length, item.unit)} {item.unit}
+                        {item.length === 1 ? "" : "s"}
+                      </span>
+                      <span>{formatCurrency(item.priceAtAdd * item.length, item.currency)}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between border-t border-theme pt-3 text-sm font-semibold">
+                    <span>Shipping ({order.deliveryMethod})</span>
+                    <span>{formatCurrency(order.shipping, "JMD")}</span>
+                  </div>
+                  <div className="flex justify-between text-sm font-semibold">
+                    <span>Total</span>
+                    <span>{formatCurrency(order.total, "JMD")}</span>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-[var(--muted)]">
+                  Delivery parish: {order.parish}. We&apos;ll follow up with delivery details by
+                  email.
+                </p>
+              </>
+            ) : (
+              <p className="mt-4 text-sm text-[var(--muted)]">
+                We&apos;ll follow up with delivery details by email.
+              </p>
+            )}
           </>
         ) : error ? (
           <p className="mt-3 text-sm text-red-200">{error}</p>

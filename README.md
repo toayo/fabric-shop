@@ -22,6 +22,23 @@ App runs at `http://localhost:3000`.
 
 Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 
+## Admin dashboard usage
+
+1. Set the `ADMIN_PASSWORD` environment variable.
+2. Visit `/admin/login` and enter the password.
+3. Manage products and shipping rates from `/admin` when database features are enabled.
+
+## Product images (Cloudinary)
+
+This project uses Cloudinary URLs so the repo stays image-free.
+
+1. Create a Cloudinary account and upload preset.
+2. Set the following env vars:
+   - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+   - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
+3. Ensure the preset allows unsigned uploads from your Netlify domain.
+4. In the admin product form, click **Upload images** to add image URLs.
+
 ## Stripe + Apple Pay configuration
 
 1. **Create a Stripe account** and get your API keys.
@@ -40,10 +57,34 @@ Netlify uses `netlify.toml` with `@netlify/plugin-nextjs` for Next.js support.
 - `data/products.ts` — seed catalog data
 - `lib/` — utilities, cart store, formatting helpers
 - `netlify/functions/` — Stripe payment intent creation
-- `public/images/` — product imagery placeholders
+- `public/` — static assets (no bundled imagery)
+
+## Order emails
+
+Order confirmation emails are not configured in this static build.
+
+## Deploy checklist (Netlify env vars)
+
+## Required Netlify environment variables
+
+Required for a fully functional production deployment:
+
+- `ADMIN_PASSWORD`
+- `STRIPE_SECRET_KEY`
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SITE_URL`
+- `PAYPAL_CLIENT_ID`
+- `PAYPAL_CLIENT_SECRET`
+
+Optional (feature-specific):
+
+- `NEXT_PUBLIC_STRIPE_CURRENCY` (default: `jmd`)
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+- `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`
+- `GMAIL_ONLY` (set to `true` to require Gmail addresses)
 
 ## Notes
 
 - Currency display defaults to JMD (Jamaican Dollars). Stripe supports multiple currencies — adjust `NEXT_PUBLIC_STRIPE_CURRENCY` if needed.
 - Cart is stored in `localStorage` for persistence.
-

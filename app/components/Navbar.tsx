@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { fabricColors, fabricTypes } from "@/data/products";
+import { fabricColors, fabricTypeSlugs, fabricTypes } from "@/data/products";
+import { formatCategoryName, formatColorName } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
@@ -12,8 +13,9 @@ const navLink = (href: string, label: string, pathname: string) => (
   <Link
     href={href}
     className={clsx(
-      "text-sm font-medium transition hover:text-ember",
-      pathname === href && "text-ember"
+      "relative text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]",
+      pathname === href &&
+        "text-[var(--accent)] drop-shadow-[0_0_6px_rgba(227,182,111,0.45)] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[var(--accent)]"
     )}
   >
     {label}
@@ -28,9 +30,9 @@ export default function Navbar() {
   const items = useCartStore((state) => state.items);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 bg-sand/90 backdrop-blur-lg shadow-sm">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-theme bg-[var(--bg)] backdrop-blur-lg">
       <div className="container flex items-center justify-between py-4">
-        <Link href="/" className="text-xl font-semibold tracking-tight">
+        <Link href="/" className="text-xl font-semibold tracking-tight text-[var(--text)]">
           Harvey&apos;s
         </Link>
         <nav className="hidden items-center gap-6 lg:flex">
@@ -41,7 +43,7 @@ export default function Navbar() {
               onMouseEnter={() => setFabricOpen(true)}
               onMouseLeave={() => setFabricOpen(false)}
               onFocus={() => setFabricOpen(true)}
-              className="text-sm font-medium transition hover:text-ember"
+              className="text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
               aria-haspopup="true"
               aria-expanded={fabricOpen}
             >
@@ -54,17 +56,17 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-0 mt-3 grid w-44 gap-2 rounded-2xl bg-white p-4 shadow-soft"
+                  className="absolute left-0 mt-3 grid w-44 gap-2 rounded-2xl border border-theme bg-[var(--surface)] p-4 shadow-soft"
                   onMouseEnter={() => setFabricOpen(true)}
                   onMouseLeave={() => setFabricOpen(false)}
                 >
                   {fabricTypes.map((type) => (
                     <Link
                       key={type}
-                      href={`/fabrics/${type}`}
-                      className="text-sm capitalize text-cocoa/80 transition hover:text-ember"
+                      href={`/fabrics/${fabricTypeSlugs[type]}`}
+                      className="text-sm capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                     >
-                      {type}
+                      {formatCategoryName(type)}
                     </Link>
                   ))}
                 </motion.div>
@@ -76,7 +78,7 @@ export default function Navbar() {
               onMouseEnter={() => setColorOpen(true)}
               onMouseLeave={() => setColorOpen(false)}
               onFocus={() => setColorOpen(true)}
-              className="text-sm font-medium transition hover:text-ember"
+              className="text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
               aria-haspopup="true"
               aria-expanded={colorOpen}
             >
@@ -89,7 +91,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-0 mt-3 grid w-44 gap-2 rounded-2xl bg-white p-4 shadow-soft"
+                  className="absolute left-0 mt-3 grid w-44 gap-2 rounded-2xl border border-theme bg-[var(--surface)] p-4 shadow-soft"
                   onMouseEnter={() => setColorOpen(true)}
                   onMouseLeave={() => setColorOpen(false)}
                 >
@@ -97,9 +99,9 @@ export default function Navbar() {
                     <Link
                       key={color}
                       href={`/colors/${color}`}
-                      className="text-sm capitalize text-cocoa/80 transition hover:text-ember"
+                      className="text-sm capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                     >
-                      {color}
+                      {formatColorName(color)}
                     </Link>
                   ))}
                 </motion.div>
@@ -110,18 +112,18 @@ export default function Navbar() {
           {navLink("/contact", "Contact", pathname)}
           <Link
             href="/cart"
-            className="relative text-sm font-medium transition hover:text-ember"
+            className="relative text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
           >
             Cart
             {items.length > 0 && (
-              <span className="absolute -right-3 -top-2 rounded-full bg-ember px-2 py-0.5 text-xs text-white">
+              <span className="absolute -right-3 -top-2 rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-[var(--bg)]">
                 {items.length}
               </span>
             )}
           </Link>
         </nav>
         <button
-          className="flex items-center gap-2 rounded-full border border-cocoa/20 px-3 py-2 text-sm lg:hidden"
+          className="flex items-center gap-2 rounded-full border border-theme bg-[var(--surface2)] px-3 py-2 text-sm text-[var(--text)] lg:hidden"
           onClick={() => setMenuOpen(true)}
           aria-label="Open navigation menu"
         >
@@ -134,7 +136,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/40"
+            className="fixed inset-0 z-50 bg-black/60"
             onClick={() => setMenuOpen(false)}
           >
             <motion.div
@@ -142,13 +144,13 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
-              className="absolute right-0 top-0 h-full w-80 bg-white p-6"
+              className="absolute right-0 top-0 h-full w-80 border-l border-theme bg-[var(--surface)] p-6"
               onClick={(event) => event.stopPropagation()}
             >
               <div className="flex items-center justify-between">
-                <span className="text-lg font-semibold">Harvey&apos;s</span>
+                <span className="text-lg font-semibold text-[var(--text)]">Harvey&apos;s</span>
                 <button
-                  className="text-sm text-cocoa/70"
+                  className="text-sm text-[var(--muted)]"
                   onClick={() => setMenuOpen(false)}
                 >
                   Close
@@ -158,31 +160,31 @@ export default function Navbar() {
                 {navLink("/", "Home", pathname)}
                 {navLink("/shop", "Shop", pathname)}
                 <div>
-                  <p className="text-xs uppercase text-cocoa/50">Fabrics</p>
+                  <p className="text-xs uppercase text-[var(--muted)]">Fabrics</p>
                   <div className="mt-2 grid gap-2">
                     {fabricTypes.map((type) => (
                       <Link
                         key={type}
-                        href={`/fabrics/${type}`}
-                        className="capitalize text-cocoa/80"
+                        href={`/fabrics/${fabricTypeSlugs[type]}`}
+                        className="capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                         onClick={() => setMenuOpen(false)}
                       >
-                        {type}
+                        {formatCategoryName(type)}
                       </Link>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs uppercase text-cocoa/50">Colors</p>
+                  <p className="text-xs uppercase text-[var(--muted)]">Colors</p>
                   <div className="mt-2 grid gap-2">
                     {fabricColors.map((color) => (
                       <Link
                         key={color}
                         href={`/colors/${color}`}
-                        className="capitalize text-cocoa/80"
+                        className="capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                         onClick={() => setMenuOpen(false)}
                       >
-                        {color}
+                        {formatColorName(color)}
                       </Link>
                     ))}
                   </div>
@@ -191,7 +193,7 @@ export default function Navbar() {
                 {navLink("/contact", "Contact", pathname)}
                 <Link
                   href="/cart"
-                  className="text-cocoa/80"
+                  className="text-[var(--muted)] transition hover:text-[var(--accent)]"
                   onClick={() => setMenuOpen(false)}
                 >
                   Cart ({items.length})

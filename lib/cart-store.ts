@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type CartUnit = "yard" | "meter";
+export type CartUnit = "yard" | "meter" | "spool";
 
 export type CartItem = {
   id: string;
   productId: string;
   name: string;
-  image: string;
+  imageUrl: string | null;
+  color: string | null;
   unit: CartUnit;
   length: number;
   priceAtAdd: number;

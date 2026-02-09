@@ -1,0 +1,16 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0 40)">
+    <g transform="translate(550 110)">
+      <circle cx="150" cy="150" r="120" stroke="#D9B86A" stroke-width="8" fill="none" />
+      <path d="M95 105 L95 195" stroke="#3B1C5A" stroke-width="12" stroke-linecap="round" />
+      <path d="M205 105 L205 195" stroke="#3B1C5A" stroke-width="12" stroke-linecap="round" />
+      <path d="M95 150 L205 150" stroke="#3B1C5A" stroke-width="12" stroke-linecap="round" />
+      <circle cx="205" cy="98" r="12" fill="#D9B86A" />
+      <path d="M205 86 C230 60 280 60 308 88" stroke="#D9B86A" stroke-width="7" stroke-linecap="round" />
+      <path d="M308 88 C342 120 336 170 300 205" stroke="#D9B86A" stroke-width="7" stroke-linecap="round" />
+      <path d="M300 205 C266 238 226 232 196 205" stroke="#D9B86A" stroke-width="7" stroke-linecap="round" />
+    </g>
+    <text x="700" y="520" text-anchor="middle" fill="#3B1C5A" font-size="104" font-family="'Playfair Display', 'Cormorant Garamond', 'Times New Roman', serif" letter-spacing="1">Harvey’s</text>
+    <text x="700" y="600" text-anchor="middle" fill="#D9B86A" font-size="34" font-family="'Inter', 'Helvetica Neue', 'Arial', sans-serif" letter-spacing="4" text-transform="uppercase">Crafted for Makers</text>
+  </g>
+</svg>

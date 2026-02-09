@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { fabricColors, fabricTypes } from "@/data/products";
+import { fabricColors, fabricTypeSlugs, fabricTypes } from "@/data/products";
 import { formatCategoryName, formatColorName } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
 import { motion, AnimatePresence } from "framer-motion";
@@ -63,7 +63,7 @@ export default function Navbar() {
                   {fabricTypes.map((type) => (
                     <Link
                       key={type}
-                      href={`/fabrics/${type}`}
+                      href={`/fabrics/${fabricTypeSlugs[type]}`}
                       className="text-sm capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                     >
                       {formatCategoryName(type)}
@@ -165,7 +165,7 @@ export default function Navbar() {
                     {fabricTypes.map((type) => (
                       <Link
                         key={type}
-                        href={`/fabrics/${type}`}
+                        href={`/fabrics/${fabricTypeSlugs[type]}`}
                         className="capitalize text-[var(--muted)] transition hover:text-[var(--accent)]"
                         onClick={() => setMenuOpen(false)}
                       >

@@ -18,7 +18,7 @@ export default function ProductDetailClient({
     "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='960' height='720'><rect width='100%25' height='100%25' fill='%23f3f4f6'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='24' font-family='Arial'>Image unavailable</text></svg>";
   const addItem = useCartStore((state) => state.addItem);
   const [selectedImage, setSelectedImage] = useState(0);
-  const unitOptions = product.type === "crochet-threads" ? (["spool"] as const) : ([
+  const unitOptions = product.type === "Crochet Threads" ? (["spool"] as const) : ([
     "yard",
     "meter",
   ] as const);

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { fabricTypes } from "@/data/products";
+import { fabricTypeBySlug, fabricTypes } from "@/data/products";
 import ProductCard from "@/app/components/ProductCard";
 import { getProductsByType } from "@/lib/products";
 import { formatCategoryName } from "@/lib/format";
@@ -9,8 +9,8 @@ const chipOptions = ["lightweight", "medium", "heavy", "printed", "solid"];
 export const dynamic = "force-dynamic";
 
 export default async function FabricTypePage({ params }: { params: { type: string } }) {
-  const type = params.type;
-  if (!fabricTypes.includes(type as (typeof fabricTypes)[number])) {
+  const type = fabricTypeBySlug[params.type];
+  if (!type || !fabricTypes.includes(type)) {
     notFound();
   }
   const products = await getProductsByType(type);

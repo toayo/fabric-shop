@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fabricColors, fabricTypes } from "@/data/products";
+import { fabricColors, fabricTypeSlugs, fabricTypes } from "@/data/products";
 import { colorMap } from "@/lib/color-map";
 import ProductCard from "@/app/components/ProductCard";
 import FabricSwatch from "@/app/components/FabricSwatch";
@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const products = await getAllProducts();
   const heroProduct = products[0];
-  const crochetThreads = products.filter((product) => product.type === "crochet-threads");
+  const crochetThreads = products.filter((product) => product.type === "Crochet Threads");
   return (
     <div className="pb-16">
       <section className="container grid gap-10 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -101,7 +101,7 @@ export default async function Home() {
           {fabricTypes.slice(0, 6).map((type) => (
             <Link
               key={type}
-              href={`/fabrics/${type}`}
+              href={`/fabrics/${fabricTypeSlugs[type]}`}
               className="group rounded-3xl p-6 shadow-sm surface card-hover transition hover:-translate-y-1"
             >
               <p className="text-xs uppercase text-[var(--muted)]">Category</p>
@@ -123,7 +123,7 @@ export default async function Home() {
             <h2 className="text-2xl font-semibold">Crochet Threads</h2>
             <p className="mt-2 text-sm text-[var(--muted)]">Browse crochet thread by color.</p>
           </div>
-          <Link href="/fabrics/crochet-threads" className="text-sm text-accent">
+          <Link href={`/fabrics/${fabricTypeSlugs["Crochet Threads"]}`} className="text-sm text-accent">
             Shop Crochet Threads
           </Link>
         </div>

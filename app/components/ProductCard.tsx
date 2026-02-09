@@ -18,7 +18,7 @@ export default function ProductCard({ product }: { product: ProductWithCurrency 
       <Link href={`/product/${product.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
           <ProductMedia
-            image={product.images[0] ?? undefined}
+            image={product.imageUrl ?? undefined}
             color={product.colors[0] ?? "beige"}
             label={product.name}
             className="absolute inset-0 transition duration-300 group-hover:scale-105"

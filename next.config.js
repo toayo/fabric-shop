@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+const cloudinaryCloudName =
+  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "dpw4t8gnb";
+
 const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
@@ -7,7 +10,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-        pathname: "/dpw4t8gnb/**",
+        pathname: `/${cloudinaryCloudName}/**`,
       },
     ],
   },

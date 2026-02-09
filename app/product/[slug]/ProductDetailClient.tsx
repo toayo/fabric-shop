@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type SyntheticEvent } from "react";
 import type { ProductWithCurrency } from "@/lib/products";
 import { formatCategoryName, formatCurrency, formatUnit } from "@/lib/format";
 import { useCartStore } from "@/lib/cart-store";
@@ -14,6 +14,8 @@ export default function ProductDetailClient({
 }: {
   product: ProductWithCurrency;
 }) {
+  const placeholderImage =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='960' height='720'><rect width='100%25' height='100%25' fill='%23f3f4f6'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='24' font-family='Arial'>Image unavailable</text></svg>";
   const addItem = useCartStore((state) => state.addItem);
   const [selectedImage, setSelectedImage] = useState(0);
   const unitOptions = product.type === "crochet-threads" ? (["spool"] as const) : ([
@@ -31,7 +33,17 @@ export default function ProductDetailClient({
     () => (product.images?.length ? product.images : [null]),
     [product]
   );
+  const heroImage = images[selectedImage] ?? product.imageUrl ?? placeholderImage;
   const primaryColor = product.colors[0] ?? "beige";
+  const handleHeroError = (event: SyntheticEvent<HTMLImageElement>) => {
+    const target = event.currentTarget;
+    if (target.dataset.fallbackApplied) {
+      return;
+    }
+    target.dataset.fallbackApplied = "true";
+    target.src = placeholderImage;
+    console.error("Image failed:", product.imageUrl);
+  };
 
   const handleAdd = () => {
     if (!isValidQuantity(length, unit)) {
@@ -47,7 +59,7 @@ export default function ProductDetailClient({
       id: `${product.id}-${unit}-${length}-${Date.now()}`,
       productId: product.id,
       name: product.name,
-      image: product.images[0] ?? null,
+      imageUrl: product.imageUrl ?? product.images[0] ?? null,
       color: product.colors[0] ?? null,
       unit,
       length,
@@ -59,12 +71,12 @@ export default function ProductDetailClient({
   return (
     <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
       <div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] surface shadow-sm">
-          <ProductMedia
-            image={images[selectedImage]}
-            color={primaryColor}
-            label={`${product.name} fabric`}
-            className="absolute inset-0"
+        <div className="relative h-[420px] overflow-hidden rounded-[32px] surface shadow-sm">
+          <img
+            src={heroImage}
+            alt={`${product.name} fabric`}
+            className="h-full w-full object-cover"
+            onError={handleHeroError}
           />
         </div>
         <div className="mt-4 flex gap-3">

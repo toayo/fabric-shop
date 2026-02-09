@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import type { SyntheticEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/cart-store";
 import { formatCurrency, formatQuantity, formatUnit } from "@/lib/format";
 import { isValidQuantity } from "@/lib/validation";
-import ProductMedia from "@/app/components/ProductMedia";
 
 export default function CartPage() {
   const { items, removeItem, updateItem } = useCartStore();
   const total = items.reduce((sum, item) => sum + item.priceAtAdd * item.length, 0);
+  const placeholderImage =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='240'><rect width='100%25' height='100%25' fill='%23f3f4f6'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='14' font-family='Arial'>Image unavailable</text></svg>";
 
   return (
     <div className="container pb-20">
@@ -37,14 +39,30 @@ export default function CartPage() {
                   exit={{ opacity: 0 }}
                   className="flex flex-col gap-4 rounded-3xl p-6 shadow-sm surface card-hover sm:flex-row"
                 >
-                  <div className="relative h-24 w-32 overflow-hidden rounded-2xl">
-                    <ProductMedia
-                      image={item.image}
-                      color={item.color ?? "beige"}
-                      label={item.name}
-                      className="absolute inset-0"
-                    />
-                  </div>
+                  {(() => {
+                    const itemImageUrl =
+                      "imageUrl" in item
+                        ? item.imageUrl
+                        : (item as { image?: string | null }).image ?? null;
+                    return (
+                      <div className="relative h-24 w-32 overflow-hidden rounded-2xl">
+                        <img
+                          src={itemImageUrl ?? placeholderImage}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                          onError={(event: SyntheticEvent<HTMLImageElement>) => {
+                            const target = event.currentTarget;
+                            if (target.dataset.fallbackApplied) {
+                              return;
+                            }
+                            target.dataset.fallbackApplied = "true";
+                            target.src = placeholderImage;
+                            console.error("Image failed:", itemImageUrl);
+                          }}
+                        />
+                      </div>
+                    );
+                  })()}
                   <div className="flex flex-1 flex-col gap-2">
                     <div className="flex items-start justify-between">
                       <div>

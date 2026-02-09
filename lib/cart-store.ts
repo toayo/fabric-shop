@@ -7,7 +7,7 @@ export type CartItem = {
   id: string;
   productId: string;
   name: string;
-  image: string | null;
+  imageUrl: string | null;
   color: string | null;
   unit: CartUnit;
   length: number;

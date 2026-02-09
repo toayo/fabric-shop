@@ -9,6 +9,7 @@ export type FabricProductSeed = {
   currency: "JMD" | "USD";
   description: string;
   images?: string[];
+  imageUrl?: string;
   width: string;
   weight: string;
   composition: string;
@@ -44,6 +45,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
     width: "55 in",
     weight: "190 gsm",
     composition: "100% linen",
@@ -63,6 +65,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
     width: "56 in",
     weight: "210 gsm",
     composition: "70% linen, 30% cotton",
@@ -82,6 +85,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
     width: "54 in",
     weight: "120 gsm",
     composition: "100% linen",
@@ -101,6 +105,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
     width: "50 in",
     weight: "85 gsm",
     composition: "Nylon blend",
@@ -120,6 +125,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
     width: "50 in",
     weight: "85 gsm",
     composition: "Nylon blend",
@@ -139,6 +145,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
     width: "50 in",
     weight: "85 gsm",
     composition: "Nylon blend",
@@ -158,6 +165,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -177,6 +185,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -196,6 +205,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586887/Bright_Yellow_Crochet_Thread_bsg3vv.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586887/Bright_Yellow_Crochet_Thread_bsg3vv.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -215,6 +225,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586889/Brown-ish_Crochet_Thread_yylllo.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586889/Brown-ish_Crochet_Thread_yylllo.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -234,6 +245,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586890/Burgundy_Crochet_Thread_o99j6i.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586890/Burgundy_Crochet_Thread_o99j6i.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -253,6 +265,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -272,6 +285,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586894/Dark_Brown_Crochet_Thread_rmyk1a.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586894/Dark_Brown_Crochet_Thread_rmyk1a.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -291,6 +305,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586896/Deep_Blue_Crochet_Thread_eijfwx.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586896/Deep_Blue_Crochet_Thread_eijfwx.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -310,6 +325,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586897/Deeper_Blue_Crochet_Thread_fbuep4.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586897/Deeper_Blue_Crochet_Thread_fbuep4.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -329,6 +345,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586900/Grey-ish_Crochet_Thread_r3xetx.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586900/Grey-ish_Crochet_Thread_r3xetx.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -348,6 +365,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -367,6 +385,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586904/Light_Green_Crochet_Thread_zwmcpa.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586904/Light_Green_Crochet_Thread_zwmcpa.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -386,6 +405,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586906/Light_Pink_Crochet_Thread_kpollh.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586906/Light_Pink_Crochet_Thread_kpollh.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -405,6 +425,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586908/Light_Purple_Crochet_Thread_on57hm.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586908/Light_Purple_Crochet_Thread_on57hm.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -424,6 +445,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586910/Lime_Green_Crochet_Thread_i1mmnj.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586910/Lime_Green_Crochet_Thread_i1mmnj.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -443,6 +465,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586913/Mint_Crochet_Thread_ijxwyf.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586913/Mint_Crochet_Thread_ijxwyf.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -462,6 +485,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586915/Multi_Dark_Blue_White_Crochet_Thread_naxcys.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586915/Multi_Dark_Blue_White_Crochet_Thread_naxcys.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -481,6 +505,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586916/Multi_Light_Pink_Bright_Pink_Lighter_Pink_Crochet_Thread_dlf0sb.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586916/Multi_Light_Pink_Bright_Pink_Lighter_Pink_Crochet_Thread_dlf0sb.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -500,6 +525,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586919/Multi_Red_Green_White_Crochet_Thread_ids2sg.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586919/Multi_Red_Green_White_Crochet_Thread_ids2sg.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -519,6 +545,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586921/Multi-Dark_Colour_Crochet_Thread_b1aar8.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586921/Multi-Dark_Colour_Crochet_Thread_b1aar8.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -538,6 +565,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586924/Orange_Crochet_Thread_c7jdg6.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586924/Orange_Crochet_Thread_c7jdg6.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -557,6 +585,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586927/Rainbow_Crochet_Thread_on88ug.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586927/Rainbow_Crochet_Thread_on88ug.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -576,6 +605,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586928/Red-ish_Crochet_Thread_ac1jjp.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586928/Red-ish_Crochet_Thread_ac1jjp.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -595,6 +625,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586932/Teal_Crochet_Thread_ckhmnt.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586932/Teal_Crochet_Thread_ckhmnt.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -614,6 +645,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -633,6 +665,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586934/Yellow_Crochet_Thread_qfttio.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586934/Yellow_Crochet_Thread_qfttio.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -652,6 +685,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587090/Dark_Green_Crochet_Thread_sujdkw.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587090/Dark_Green_Crochet_Thread_sujdkw.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -671,6 +705,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -690,6 +725,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587095/Lighter_beige-ish_Crochet_Thread_hssi9y.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587095/Lighter_beige-ish_Crochet_Thread_hssi9y.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -709,6 +745,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587098/Lighter_Pink_Crochet_Thread_z2qlac.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587098/Lighter_Pink_Crochet_Thread_z2qlac.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -728,6 +765,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587101/Peach_Colour_Crochet_Thread_kldigs.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587101/Peach_Colour_Crochet_Thread_kldigs.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",
@@ -747,6 +785,7 @@ export const seedProducts: FabricProductSeed[] = [
     images: [
       "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587104/Purple_Crochet_Thread_zu7ciy.jpg",
     ],
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587104/Purple_Crochet_Thread_zu7ciy.jpg",
     width: "N/A",
     weight: "N/A",
     composition: "100% cotton",

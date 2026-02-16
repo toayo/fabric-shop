@@ -7,3 +7,14 @@ out
 netlify/.next
 netlify/functions-serve
 .DS_Store
+# Binary assets
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
+*.pdf
+*.zip
+*.ttf
+*.otf

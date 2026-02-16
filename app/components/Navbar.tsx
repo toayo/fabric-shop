@@ -32,13 +32,12 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-theme bg-[var(--bg)] backdrop-blur-lg">
       <div className="container flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-3 text-xl font-semibold tracking-tight text-[var(--text)]">
+        <Link href="/" className="flex items-center text-[var(--text)]">
           <img
             src="https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png"
-            alt="Harvey’s Logo"
-            className="h-10 w-auto"
+            alt="Harvey's"
+            className="h-8 w-auto max-w-[180px] shrink-0 object-contain md:h-11"
           />
-          <span>Harvey&apos;s</span>
         </Link>
         <nav className="hidden items-center gap-6 lg:flex">
           {navLink("/", "Home", pathname)}
@@ -153,7 +152,11 @@ export default function Navbar() {
               onClick={(event) => event.stopPropagation()}
             >
               <div className="flex items-center justify-between">
-                <span className="text-lg font-semibold text-[var(--text)]">Harvey&apos;s</span>
+                <img
+                  src="https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png"
+                  alt="Harvey's"
+                  className="h-8 w-auto max-w-[160px] shrink-0 object-contain"
+                />
                 <button
                   className="text-sm text-[var(--muted)]"
                   onClick={() => setMenuOpen(false)}

@@ -12,7 +12,7 @@ const getPayPalBaseUrl = () => {
 };
 
 const getAccessToken = async () => {
-  const clientId = process.env.PAYPAL_CLIENT_ID;
+  const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
     throw new Error("PayPal credentials not configured.");

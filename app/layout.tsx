@@ -3,6 +3,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsappButton from "./components/WhatsappButton";
 
 export const metadata: Metadata = {
   title: "Harvey's | Premium Fabrics in Jamaica",
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-sand text-cocoa">
+      <body>
         <Providers>
           <Navbar />
           <main className="pt-24">{children}</main>
           <Footer />
+          <WhatsappButton />
         </Providers>
       </body>
     </html>

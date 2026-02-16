@@ -1,0 +1,16 @@
+export const parishes = [
+  "Kingston",
+  "St. Andrew",
+  "St. Catherine",
+  "Clarendon",
+  "Manchester",
+  "St. Elizabeth",
+  "Westmoreland",
+  "Hanover",
+  "St. James",
+  "Trelawny",
+  "St. Ann",
+  "St. Mary",
+  "Portland",
+  "St. Thomas",
+];

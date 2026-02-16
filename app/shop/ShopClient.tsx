@@ -17,15 +17,15 @@ const colorOptions = [{ label: "All", value: "all" }].concat(
 );
 
 export default function ShopClient({ products }: { products: ProductWithCurrency[] }) {
-  const [type, setType] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [color, setColor] = useState("all");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("featured");
 
   const filtered = useMemo(() => {
     let items = [...products];
-    if (type !== "all") {
-      items = items.filter((item) => item.type === type);
+    if (selectedCategory !== "all") {
+      items = items.filter((product) => product.category === selectedCategory);
     }
     if (color !== "all") {
       items = items.filter((item) => item.colors.includes(color));
@@ -41,7 +41,7 @@ export default function ShopClient({ products }: { products: ProductWithCurrency
       items.sort((a, b) => b.pricePerYard - a.pricePerYard);
     }
     return items;
-  }, [type, color, query, sort, products]);
+  }, [selectedCategory, color, query, sort, products]);
 
   return (
     <div className="container pb-20">
@@ -53,7 +53,7 @@ export default function ShopClient({ products }: { products: ProductWithCurrency
         <div className="mt-6 grid gap-4 lg:grid-cols-[2fr_2fr_1fr]">
           <div>
             <p className="text-xs uppercase text-[var(--muted)]">Fabric Type</p>
-            <FilterTabs options={typeOptions} value={type} onChange={setType} />
+            <FilterTabs options={typeOptions} value={selectedCategory} onChange={setSelectedCategory} />
           </div>
           <div>
             <p className="text-xs uppercase text-[var(--muted)]">Color</p>

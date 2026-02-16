@@ -31,12 +31,12 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-theme bg-[var(--bg)] backdrop-blur-lg">
-      <div className="navbar container py-4">
+      <div className="flex items-center justify-between py-3 px-6">
         <Link href="/" className="flex items-center text-[var(--text)]">
           <img
             src="https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png"
             alt="Harvey's"
-            className="navbar-logo"
+            className="h-14 w-auto object-contain md:h-[72px] lg:h-20"
           />
         </Link>
         <nav className="hidden items-center gap-8 lg:flex">
@@ -159,7 +159,7 @@ export default function Navbar() {
                 <img
                   src="https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png"
                   alt="Harvey's"
-                  className="navbar-logo"
+                  className="h-14 w-auto object-contain"
                 />
                 <button
                   className="text-sm text-[var(--muted)]"

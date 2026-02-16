@@ -9,6 +9,7 @@ export type ProductWithCurrency = {
   pricePerMeter: number;
   currency: "JMD" | "USD";
   type: string;
+  category: string;
   colors: string[];
   description: string;
   images: string[];
@@ -62,6 +63,7 @@ const products: ProductWithCurrency[] = seedProducts.map((product) => ({
   pricePerMeter: product.pricePerMeter,
   currency: product.currency,
   type: product.type,
+  category: product.type,
   colors: [normalizeColor(product.color)],
   description: product.description,
   images: product.images ?? [],

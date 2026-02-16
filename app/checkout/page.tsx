@@ -161,6 +161,7 @@ export default function CheckoutPage() {
     pickupFee: number;
   } | null>(null);
   const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("delivery");
+  const [shippingMethod, setShippingMethod] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<ShippingFormErrors>({});
   const [showErrorSummary, setShowErrorSummary] = useState(false);
   const [paypalError, setPaypalError] = useState<string | null>(null);
@@ -373,7 +374,10 @@ export default function CheckoutPage() {
                       <button
                         key={option}
                         type="button"
-                        onClick={() => setDeliveryMethod(option)}
+                        onClick={() => {
+                          setDeliveryMethod(option);
+                          setShippingMethod(option === "delivery" ? "knutsford" : "pickup");
+                        }}
                         className={`rounded-full px-4 py-2 text-sm font-semibold ${
                           deliveryMethod === option ? "btn-primary shadow-soft" : "btn-secondary"
                         }`}
@@ -382,11 +386,14 @@ export default function CheckoutPage() {
                       </button>
                     ))}
                   </div>
+                  {!shippingMethod && (
+                    <p className="mt-2 text-xs text-[var(--muted)]">Please select a shipping method.</p>
+                  )}
                 </div>
-                {deliveryMethod === "delivery" && (
-                  <p className="rounded-2xl border border-[#d8b26b44] bg-[#d8b26b12] px-4 py-3 text-xs text-[var(--muted)]">
+                {shippingMethod === "knutsford" && (
+                  <div className="mt-4 text-sm text-purple-200 leading-relaxed">
                     Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
-                  </p>
+                  </div>
                 )}
                 {deliveryMethod === "delivery" && (
                   <>
@@ -707,9 +714,12 @@ export default function CheckoutPage() {
                 <span>{formatCurrency(total, items[0]?.currency ?? "JMD")}</span>
               </div>
             </div>
-            <p className="mt-2 text-xs text-[var(--muted)]">
-              Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
-            </p>
+            {shippingMethod === "knutsford" && (
+              <div className="mt-4 text-sm text-purple-200 leading-relaxed">
+                Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
+              </div>
+            )}
+            {!shippingMethod && <p className="mt-2 text-xs text-[var(--muted)]">Please select a shipping method.</p>}
             <p className="mt-2 text-xs">
               Payments processed securely with Stripe. Apple Pay requires domain verification
               in the Stripe dashboard.

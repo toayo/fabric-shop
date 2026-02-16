@@ -15,22 +15,45 @@ export type CartItem = {
   currency: "JMD" | "USD";
 };
 
+type CartToastPayload = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  lineTotal: number;
+  currency: "JMD" | "USD";
+  itemCount: number;
+};
+
 type CartState = {
   items: CartItem[];
+  cartToast: CartToastPayload | null;
   addItem: (item: CartItem) => void;
   updateItem: (id: string, updates: Partial<CartItem>) => void;
   removeItem: (id: string) => void;
   clear: () => void;
+  dismissToast: () => void;
 };
 
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
+      cartToast: null,
       addItem: (item) =>
-        set((state) => ({
-          items: [...state.items, item],
-        })),
+        set((state) => {
+          const items = [...state.items, item];
+          return {
+            items,
+            cartToast: {
+              id: item.id,
+              name: item.name,
+              imageUrl: item.imageUrl,
+              lineTotal: item.priceAtAdd * item.length,
+              currency: item.currency,
+              itemCount: items.length,
+            },
+          };
+        }),
       updateItem: (id, updates) =>
         set((state) => ({
           items: state.items.map((item) =>
@@ -42,9 +65,11 @@ export const useCartStore = create<CartState>()(
           items: state.items.filter((item) => item.id !== id),
         })),
       clear: () => set({ items: [] }),
+      dismissToast: () => set({ cartToast: null }),
     }),
     {
       name: "harveys-cart",
+      partialize: (state) => ({ items: state.items }),
     }
   )
 );

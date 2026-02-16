@@ -26,7 +26,7 @@ export default function CartSummary({ items }: { items: CartItem[] }) {
         <span>{formatCurrency(total, items[0]?.currency ?? "JMD")}</span>
       </div>
       <p className="mt-3 text-xs text-[var(--muted)]">
-        Shipping within Jamaica calculated at checkout. Need bulk delivery? Contact our team.
+        Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
       </p>
     </div>
   );

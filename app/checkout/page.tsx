@@ -378,16 +378,21 @@ export default function CheckoutPage() {
                           deliveryMethod === option ? "btn-primary shadow-soft" : "btn-secondary"
                         }`}
                       >
-                        {option === "delivery" ? "Delivery" : "Pickup"}
+                        {option === "delivery" ? "Knutsford Express (Drop-off)" : "Pickup"}
                       </button>
                     ))}
                   </div>
                 </div>
                 {deliveryMethod === "delivery" && (
+                  <p className="rounded-2xl border border-[#d8b26b44] bg-[#d8b26b12] px-4 py-3 text-xs text-[var(--muted)]">
+                    Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
+                  </p>
+                )}
+                {deliveryMethod === "delivery" && (
                   <>
                     <div>
                       <label className="text-xs uppercase text-[var(--muted)]">
-                        Address line 1
+                        Address line 1 (required)
                       </label>
                       <input
                         type="text"
@@ -425,7 +430,7 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-xs uppercase text-[var(--muted)]">Parish</label>
+                      <label className="text-xs uppercase text-[var(--muted)]">Parish (required)</label>
                       <select
                         value={shippingForm.parish}
                         onChange={(event) =>
@@ -447,7 +452,7 @@ export default function CheckoutPage() {
                       )}
                     </div>
                     <div>
-                      <label className="text-xs uppercase text-[var(--muted)]">City/Town</label>
+                      <label className="text-xs uppercase text-[var(--muted)]">City/Town (required)</label>
                       <input
                         type="text"
                         value={shippingForm.city}
@@ -702,6 +707,9 @@ export default function CheckoutPage() {
                 <span>{formatCurrency(total, items[0]?.currency ?? "JMD")}</span>
               </div>
             </div>
+            <p className="mt-2 text-xs text-[var(--muted)]">
+              Shipping is handled by Knutsford Express. We do not deliver directly. We drop your package off at Knutsford Express, and you will pay Knutsford’s shipping fee when you collect/receive the package in your parish.
+            </p>
             <p className="mt-2 text-xs">
               Payments processed securely with Stripe. Apple Pay requires domain verification
               in the Stripe dashboard.

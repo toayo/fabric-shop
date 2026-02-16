@@ -12,6 +12,11 @@ export default function AboutPage() {
           We partner with trusted mills worldwide and provide personalized service for local
           makers, including sourcing assistance and production-ready recommendations.
         </p>
+        <div className="mt-6 rounded-2xl border border-theme p-4 text-sm text-[var(--muted)]">
+          <p><span className="font-semibold text-[var(--text)]">Address:</span> 61 Main St, Ocho Rios, St Ann, Jamaica</p>
+          <p className="mt-1"><span className="font-semibold text-[var(--text)]">Email:</span> Fandsessentials@gmail.com</p>
+          <p className="mt-1"><span className="font-semibold text-[var(--text)]">Phone:</span> +1 (658) 207-5856</p>
+        </div>
       </div>
     </div>
   );

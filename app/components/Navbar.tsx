@@ -13,7 +13,7 @@ const navLink = (href: string, label: string, pathname: string) => (
   <Link
     href={href}
     className={clsx(
-      "relative text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]",
+      "relative text-base font-semibold text-[#f8f2ff] transition hover:text-[var(--accent)] hover:drop-shadow-[0_0_8px_rgba(227,182,111,0.35)]",
       pathname === href &&
         "text-[var(--accent)] drop-shadow-[0_0_6px_rgba(227,182,111,0.45)] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[var(--accent)]"
     )}
@@ -39,7 +39,7 @@ export default function Navbar() {
             className="navbar-logo"
           />
         </Link>
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navLink("/", "Home", pathname)}
           {navLink("/shop", "Shop", pathname)}
           <div className="relative">
@@ -47,7 +47,7 @@ export default function Navbar() {
               onMouseEnter={() => setFabricOpen(true)}
               onMouseLeave={() => setFabricOpen(false)}
               onFocus={() => setFabricOpen(true)}
-              className="text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
+              className="text-base font-semibold text-[#f8f2ff] transition hover:text-[var(--accent)] hover:drop-shadow-[0_0_8px_rgba(227,182,111,0.35)]"
               aria-haspopup="true"
               aria-expanded={fabricOpen}
             >
@@ -82,7 +82,7 @@ export default function Navbar() {
               onMouseEnter={() => setColorOpen(true)}
               onMouseLeave={() => setColorOpen(false)}
               onFocus={() => setColorOpen(true)}
-              className="text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
+              className="text-base font-semibold text-[#f8f2ff] transition hover:text-[var(--accent)] hover:drop-shadow-[0_0_8px_rgba(227,182,111,0.35)]"
               aria-haspopup="true"
               aria-expanded={colorOpen}
             >
@@ -116,11 +116,15 @@ export default function Navbar() {
           {navLink("/contact", "Contact", pathname)}
           <Link
             href="/cart"
-            className="relative text-sm font-medium text-[var(--text)] transition hover:text-[var(--accent)]"
+            className="relative inline-flex items-center gap-2 rounded-full border border-[#d8b26b77] bg-[var(--surface2)] px-3 py-2 text-sm font-semibold text-[#f8f2ff] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            aria-label={`View cart (${items.length} items)`}
           >
-            Cart
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#d8b26baa] bg-[var(--surface)] text-sm">
+              🛒
+            </span>
+            <span>Cart</span>
             {items.length > 0 && (
-              <span className="absolute -right-3 -top-2 rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-[var(--bg)]">
+              <span className="absolute -right-2 -top-2 rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-[var(--bg)]">
                 {items.length}
               </span>
             )}
@@ -201,9 +205,12 @@ export default function Navbar() {
                 {navLink("/contact", "Contact", pathname)}
                 <Link
                   href="/cart"
-                  className="text-[var(--muted)] transition hover:text-[var(--accent)]"
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d8b26b77] bg-[var(--surface2)] px-3 py-2 font-semibold text-[#f8f2ff] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
                   onClick={() => setMenuOpen(false)}
                 >
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#d8b26baa] bg-[var(--surface)] text-xs">
+                    🛒
+                  </span>
                   Cart ({items.length})
                 </Link>
               </div>

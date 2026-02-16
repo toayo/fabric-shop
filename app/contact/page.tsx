@@ -8,8 +8,9 @@ export default function ContactPage() {
           within one business day.
         </p>
         <div className="mt-6 space-y-2 text-sm text-[var(--muted)]">
-          <p>Email: hello@harveysfabrics.com</p>
-          <p>Phone: +1 (876) 555-0123</p>
+          <p>Email: Fandsessentials@gmail.com</p>
+          <p>Phone: +1 (658) 207-5856</p>
+          <p>Address: 61 Main St, Ocho Rios, St Ann, Jamaica</p>
           <p>Hours: Mon - Sat, 9:00am - 6:00pm</p>
         </div>
       </div>

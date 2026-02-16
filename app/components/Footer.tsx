@@ -12,9 +12,9 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-[var(--text)]">Contact</h4>
           <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
-            <li>hello@harveysfabrics.com</li>
-            <li>Kingston, Jamaica</li>
-            <li>+1 (876) 555-0123</li>
+            <li>Fandsessentials@gmail.com</li>
+            <li>61 Main St, Ocho Rios, St Ann, Jamaica</li>
+            <li>+1 (658) 207-5856</li>
           </ul>
         </div>
         <div>

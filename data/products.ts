@@ -57,15 +57,16 @@ export const seedProducts: FabricProductSeed[] = [
     currency: "JMD",
     description: "Airy, crisp linen in a calm Caribbean blue with a relaxed, premium drape.",
     images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
+      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586902/Light_Blue_Crochet_Thread_rassct.jpg",
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     width: "55 in",
     weight: "190 gsm",
     composition: "100% linen",
     care: "Machine wash cold, hang dry",
     origin: "Ireland",
   },
+
   {
     id: "sandbar-linen-blend",
     name: "Sandbar Linen Blend",
@@ -77,15 +78,16 @@ export const seedProducts: FabricProductSeed[] = [
     currency: "JMD",
     description: "Neutral linen blend with a textured slub for relaxed tailoring and home decor.",
     images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
+      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586884/Beige-ish_Crochet_Thread_hnt8e0.jpg",
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     width: "56 in",
     weight: "210 gsm",
     composition: "70% linen, 30% cotton",
     care: "Machine wash cold, line dry",
     origin: "Belgium",
   },
+
   {
     id: "ivory-linen-gauze",
     name: "Ivory Linen Gauze",
@@ -97,75 +99,16 @@ export const seedProducts: FabricProductSeed[] = [
     currency: "JMD",
     description: "Lightweight linen gauze with a soft hand for drapey summer silhouettes.",
     images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
+      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586933/White_Crochet_Thread_rviexa.jpg",
+    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1771205338/ChatGPT_Image_Feb_9_2026_11_21_18_PM_kfedix.png",
     width: "54 in",
     weight: "120 gsm",
     composition: "100% linen",
     care: "Hand wash cold, line dry",
     origin: "Italy",
   },
-  {
-    id: "midnight-mesh-trimming",
-    name: "Midnight Mesh Trimming",
-    slug: "midnight-mesh-trimming",
-    type: "Mesh Trimmings",
-    color: "black",
-    pricePerYard: 1000,
-    pricePerMeter: 1000,
-    currency: "JMD",
-    description: "Sheer mesh trimming for overlays, corsetry, and elevated finishes.",
-    images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
-    ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770587092/Dark_Purple_Crochet_Thread_smsmpa.jpg",
-    width: "50 in",
-    weight: "85 gsm",
-    composition: "Nylon blend",
-    care: "Hand wash cold, line dry",
-    origin: "Jamaica",
-  },
-  {
-    id: "rose-mesh-trimming",
-    name: "Rose Mesh Trimming",
-    slug: "rose-mesh-trimming",
-    type: "Mesh Trimmings",
-    color: "pink",
-    pricePerYard: 1000,
-    pricePerMeter: 1000,
-    currency: "JMD",
-    description: "Soft mesh trim with a rosy hue for delicate accents and bridal details.",
-    images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
-    ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586885/Bright_Pink_Crochet_Thread_ckbeoi.jpg",
-    width: "50 in",
-    weight: "85 gsm",
-    composition: "Nylon blend",
-    care: "Hand wash cold, line dry",
-    origin: "Jamaica",
-  },
-  {
-    id: "azure-mesh-trimming",
-    name: "Azure Mesh Trimming",
-    slug: "azure-mesh-trimming",
-    type: "Mesh Trimmings",
-    color: "blue",
-    pricePerYard: 1000,
-    pricePerMeter: 1000,
-    currency: "JMD",
-    description: "Crisp mesh trimming for statement sleeves, veils, and accessories.",
-    images: [
-      "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
-    ],
-    imageUrl: "https://res.cloudinary.com/dpw4t8gnb/image/upload/v1770586892/Dark_Blue_Crochet_Thread_oroghh.jpg",
-    width: "50 in",
-    weight: "85 gsm",
-    composition: "Nylon blend",
-    care: "Hand wash cold, line dry",
-    origin: "Jamaica",
-  },
+
   {
     id: "beige-crochet-thread",
     name: "Beige Crochet Thread",
@@ -186,6 +129,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "bright-pink-crochet-thread",
     name: "Bright Pink Crochet Thread",
@@ -206,6 +150,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "bright-yellow-crochet-thread",
     name: "Bright Yellow Crochet Thread",
@@ -226,6 +171,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "brown-crochet-thread",
     name: "Brown Crochet Thread",
@@ -246,6 +192,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "burgundy-crochet-thread",
     name: "Burgundy Crochet Thread",
@@ -266,6 +213,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "dark-blue-crochet-thread",
     name: "Dark Blue Crochet Thread",
@@ -286,6 +234,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "dark-brown-crochet-thread",
     name: "Dark Brown Crochet Thread",
@@ -306,6 +255,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "deep-blue-crochet-thread",
     name: "Deep Blue Crochet Thread",
@@ -326,6 +276,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "deeper-blue-crochet-thread",
     name: "Deeper Blue Crochet Thread",
@@ -346,6 +297,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "grey-crochet-thread",
     name: "Grey Crochet Thread",
@@ -366,6 +318,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "light-blue-crochet-thread",
     name: "Light Blue Crochet Thread",
@@ -386,6 +339,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "light-green-crochet-thread",
     name: "Light Green Crochet Thread",
@@ -406,6 +360,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "light-pink-crochet-thread",
     name: "Light Pink Crochet Thread",
@@ -426,6 +381,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "light-purple-crochet-thread",
     name: "Light Purple Crochet Thread",
@@ -446,6 +402,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "lime-green-crochet-thread",
     name: "Lime Green Crochet Thread",
@@ -466,6 +423,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mint-crochet-thread",
     name: "Mint Crochet Thread",
@@ -486,6 +444,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "multi-blue-white-crochet-thread",
     name: "Multi Dark Blue White Crochet Thread",
@@ -506,6 +465,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "multi-pink-crochet-thread",
     name: "Multi Pink Crochet Thread",
@@ -526,6 +486,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "multi-red-green-white-crochet-thread",
     name: "Multi Red Green White Crochet Thread",
@@ -546,6 +507,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "multi-dark-colour-crochet-thread",
     name: "Multi Dark Colour Crochet Thread",
@@ -566,6 +528,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "orange-crochet-thread",
     name: "Orange Crochet Thread",
@@ -586,6 +549,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "rainbow-crochet-thread",
     name: "Rainbow Crochet Thread",
@@ -606,6 +570,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "red-crochet-thread",
     name: "Red Crochet Thread",
@@ -626,6 +591,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "teal-crochet-thread",
     name: "Teal Crochet Thread",
@@ -646,6 +612,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "white-crochet-thread",
     name: "White Crochet Thread",
@@ -666,6 +633,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "yellow-crochet-thread",
     name: "Yellow Crochet Thread",
@@ -686,6 +654,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "dark-green-crochet-thread",
     name: "Dark Green Crochet Thread",
@@ -706,6 +675,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "dark-purple-crochet-thread",
     name: "Dark Purple Crochet Thread",
@@ -726,6 +696,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "lighter-beige-crochet-thread",
     name: "Lighter Beige Crochet Thread",
@@ -746,6 +717,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "lighter-pink-crochet-thread",
     name: "Lighter Pink Crochet Thread",
@@ -766,6 +738,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "peach-crochet-thread",
     name: "Peach Crochet Thread",
@@ -786,6 +759,7 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "purple-crochet-thread",
     name: "Purple Crochet Thread",
@@ -806,9 +780,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-dark-purple",
-    name: "Dark Purple",
+    name: "Dark Purple Mesh Trimmings",
     slug: "mesh-dark-purple",
     type: "Mesh Trimmings",
     color: "multicolor",
@@ -826,9 +801,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-dark-blue",
-    name: "Dark Blue",
+    name: "Dark Blue Mesh Trimmings",
     slug: "mesh-dark-blue",
     type: "Mesh Trimmings",
     color: "blue",
@@ -846,9 +822,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-bright-rose",
-    name: "Bright Rose",
+    name: "Bright Rose Mesh Trimmings",
     slug: "mesh-bright-rose",
     type: "Mesh Trimmings",
     color: "pink",
@@ -866,9 +843,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-bright",
-    name: "Bright",
+    name: "Bright Mesh Trimmings",
     slug: "mesh-bright",
     type: "Mesh Trimmings",
     color: "pink",
@@ -886,9 +864,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-black",
-    name: "Black",
+    name: "Black Mesh Trimmings",
     slug: "mesh-black",
     type: "Mesh Trimmings",
     color: "black",
@@ -906,9 +885,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-white-pearl",
-    name: "White Pearl",
+    name: "White Pearl Mesh Trimmings",
     slug: "mesh-white-pearl",
     type: "Mesh Trimmings",
     color: "white",
@@ -926,9 +906,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-silver",
-    name: "Silver",
+    name: "Silver Mesh Trimmings",
     slug: "mesh-silver",
     type: "Mesh Trimmings",
     color: "multicolor",
@@ -946,9 +927,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-sea-blue",
-    name: "Sea Blue",
+    name: "Sea Blue Mesh Trimmings",
     slug: "mesh-sea-blue",
     type: "Mesh Trimmings",
     color: "blue",
@@ -966,9 +948,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-rose",
-    name: "Rose",
+    name: "Rose Mesh Trimmings",
     slug: "mesh-rose",
     type: "Mesh Trimmings",
     color: "pink",
@@ -986,9 +969,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-purple",
-    name: "Purple",
+    name: "Purple Mesh Trimmings",
     slug: "mesh-purple",
     type: "Mesh Trimmings",
     color: "multicolor",
@@ -1006,9 +990,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-red",
-    name: "Red",
+    name: "Red Mesh Trimmings",
     slug: "mesh-red",
     type: "Mesh Trimmings",
     color: "red",
@@ -1026,9 +1011,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-pink",
-    name: "Pink",
+    name: "Pink Mesh Trimmings",
     slug: "mesh-pink",
     type: "Mesh Trimmings",
     color: "pink",
@@ -1046,9 +1032,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-orange",
-    name: "Orange",
+    name: "Orange Mesh Trimmings",
     slug: "mesh-orange",
     type: "Mesh Trimmings",
     color: "yellow",
@@ -1066,9 +1053,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-light-green",
-    name: "Light Green",
+    name: "Light Green Mesh Trimmings",
     slug: "mesh-light-green",
     type: "Mesh Trimmings",
     color: "green",
@@ -1086,9 +1074,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-green",
-    name: "Green",
+    name: "Green Mesh Trimmings",
     slug: "mesh-green",
     type: "Mesh Trimmings",
     color: "green",
@@ -1106,9 +1095,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-light-blue",
-    name: "Light Blue",
+    name: "Light Blue Mesh Trimmings",
     slug: "mesh-light-blue",
     type: "Mesh Trimmings",
     color: "blue",
@@ -1126,9 +1116,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-gold",
-    name: "Gold",
+    name: "Gold Mesh Trimmings",
     slug: "mesh-gold",
     type: "Mesh Trimmings",
     color: "multicolor",
@@ -1146,9 +1137,10 @@ export const seedProducts: FabricProductSeed[] = [
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
   },
+
   {
     id: "mesh-emerald-green",
-    name: "Emerald Green",
+    name: "Emerald Green Mesh Trimmings",
     slug: "mesh-emerald-green",
     type: "Mesh Trimmings",
     color: "green",

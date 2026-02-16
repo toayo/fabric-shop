@@ -7,12 +7,13 @@ import { ReactNode } from "react";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "";
+  const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID?.trim() ?? "";
 
   return (
     <PayPalScriptProvider
+      deferLoading={!paypalClientId}
       options={{
-        "client-id": paypalClientId,
+        clientId: paypalClientId,
         currency: "USD",
         intent: "capture",
       }}

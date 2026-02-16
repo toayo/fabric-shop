@@ -805,8 +805,7 @@ export const seedProducts: FabricProductSeed[] = [
     composition: "100% cotton",
     care: "Hand wash cold, air dry",
     origin: "Jamaica",
-  },,
-
+  },
   {
     id: "mesh-dark-purple",
     name: "Dark Purple",
